@@ -1,0 +1,42 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.3.15/schema.json",
+  "extends": ["ultracite/biome/core"],
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "includes": ["!_migrate"]
+  },
+  "overrides": [
+    {
+      "includes": ["src/components/ui/**"],
+      "linter": {
+        "rules": {
+          "performance": {
+            "noNamespaceImport": "off"
+          },
+          "style": {
+            "useConsistentTypeDefinitions": "off"
+          },
+          "a11y": {
+            "useSemanticElements": "off",
+            "useKeyWithClickEvents": "off",
+            "noNoninteractiveElementInteractions": "off",
+            "noLabelWithoutControl": "off",
+            "useFocusableInteractive": "off"
+          },
+          "suspicious": {
+            "noDoubleEquals": "off",
+            "noArrayIndexKey": "off",
+            "noDocumentCookie": "off"
+          },
+          "correctness": {
+            "useExhaustiveDependencies": "off"
+          }
+        }
+      }
+    }
+  ]
+}

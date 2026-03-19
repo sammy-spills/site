@@ -1,0 +1,24 @@
+{
+  "profile": {
+    "fullName": "Your Name",
+    "title": "",
+    "role": "Add your role",
+    "institute": "Add your organisation",
+    "authorName": "Your Name"
+  },
+  "social": {
+    "email": "hello@example.com",
+    "linkedin": "",
+    "x": "",
+    "github": "",
+    "gitlab": "",
+    "scholar": "",
+    "inspire": "",
+    "arxiv": ""
+  },
+  "seo": {
+    "defaultTitle": "Portfolio Starter",
+    "defaultDescription": "A clean starter site ready for your content.",
+    "defaultImage": "/favicon.svg"
+  }
+}
