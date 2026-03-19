@@ -1,24 +1,19 @@
 {
   "profile": {
-    "fullName": "Your Name",
+    "fullName": "Sam Spillard",
     "title": "",
-    "role": "Add your role",
-    "institute": "Add your organisation",
-    "authorName": "Your Name"
+    "role": "Principal AI/ML Research Institute",
+    "institute": "Camulos.io",
+    "authorName": "Sam T Spillard"
   },
   "social": {
-    "email": "hello@example.com",
-    "linkedin": "",
-    "x": "",
-    "github": "",
-    "gitlab": "",
-    "scholar": "",
-    "inspire": "",
-    "arxiv": ""
+    "email": "sam@spillard.io",
+    "linkedin": "https://www.linkedin.com/in/sam-spillard-a51056bb/",
+    "github": "https://github.com/sammy-spills",
+    "scholar": "https://scholar.google.co.uk/citations?user=tSqxJVEAAAAJ",
   },
   "seo": {
-    "defaultTitle": "Portfolio Starter",
-    "defaultDescription": "A clean starter site ready for your content.",
+    "defaultTitle": "Sam Spillard",
     "defaultImage": "/favicon.svg"
   }
 }
