@@ -1,6 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { site } from "@/lib/data";
+import Image from "next/image";
 
 const starterSections = [
   "Replace the homepage copy with your own introduction.",
@@ -12,7 +13,19 @@ export default function Home() {
   return (
     <div className="space-y-10">
       <section className="space-y-4 text-center">
-        <Badge variant="secondary">Starter Template</Badge>
+        {site.profile.image ? (
+          <div className="mx-auto relative size-32 overflow-hidden rounded-full border">
+            <Image
+              alt={site.profile.fullName || "Profile image"}
+              className="object-cover"
+              fill
+              sizes="256px"
+              src={site.profile.image}
+            />
+          </div>
+        ) : (
+          <Badge variant="secondary">Starter Template</Badge>
+        )}
         <div className="space-y-3">
           <h1 className="font-bold text-3xl sm:text-4xl">
             {site.profile.fullName || "Your Name"}

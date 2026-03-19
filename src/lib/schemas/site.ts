@@ -11,6 +11,7 @@ export const profileSchema = z.object({
   institute: stringField,
   instituteUrl: stringField,
   authorName: stringField,
+  image: stringField,
 });
 
 export const socialSchema = z.object({
