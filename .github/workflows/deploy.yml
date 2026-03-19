@@ -17,6 +17,9 @@ permissions:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NEXT_PUBLIC_SITE_URL: https://sam.spillard.io
+      NEXT_PUBLIC_BASE_PATH: /
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
