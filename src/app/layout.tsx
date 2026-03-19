@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { SidebarLayout } from "@/components/sidebar-layout";
+import { siteConfig } from "@/lib/site-config";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/data";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://example.com"),
+  metadataBase: new URL(siteConfig.siteUrl),
   title: {
     default: site.seo.defaultTitle,
     template: `%s — ${site.seo.defaultTitle}`,
