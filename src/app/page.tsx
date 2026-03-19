@@ -18,7 +18,7 @@ export default function Home() {
             {site.profile.fullName || "Your Name"}
           </h1>
           <p className="text-muted-foreground text-sm/relaxed">
-            This site has been cleared and is ready for your content.
+            {site.profile.role} @ {site.profile.institute}
           </p>
         </div>
       </section>
