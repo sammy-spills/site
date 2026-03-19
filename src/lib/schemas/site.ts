@@ -1,28 +1,32 @@
 import { z } from "zod";
 
+const stringField = z.string().default("");
+const urlField = z.string().url().or(z.literal("")).default("");
+const emailField = z.string().email().or(z.literal("")).default("");
+
 export const profileSchema = z.object({
-  fullName: z.string(),
-  title: z.string(),
-  role: z.string(),
-  institute: z.string(),
-  authorName: z.string(),
+  fullName: stringField,
+  title: stringField,
+  role: stringField,
+  institute: stringField,
+  authorName: stringField,
 });
 
 export const socialSchema = z.object({
-  email: z.string().email(),
-  linkedin: z.string().url().or(z.literal("")),
-  x: z.string().url().or(z.literal("")),
-  github: z.string().url().or(z.literal("")),
-  gitlab: z.string().url().or(z.literal("")),
-  scholar: z.string().url().or(z.literal("")),
-  inspire: z.string().url().or(z.literal("")),
-  arxiv: z.string().url().or(z.literal("")),
+  email: emailField,
+  linkedin: urlField,
+  x: urlField,
+  github: urlField,
+  gitlab: urlField,
+  scholar: urlField,
+  inspire: urlField,
+  arxiv: urlField,
 });
 
 export const seoSchema = z.object({
-  defaultTitle: z.string(),
-  defaultDescription: z.string(),
-  defaultImage: z.string(),
+  defaultTitle: stringField,
+  defaultDescription: stringField,
+  defaultImage: stringField,
 });
 
 export const siteConfigSchema = z.object({
