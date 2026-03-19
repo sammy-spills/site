@@ -18,7 +18,13 @@ export default function Home() {
             {site.profile.fullName || "Your Name"}
           </h1>
           <p className="text-muted-foreground text-sm/relaxed">
-            {site.profile.role} @ {site.profile.institute}
+            {site.profile.role} @{" "}
+            <a
+              href={site.profile.instituteUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="underline underline-offset-4"
+              >{site.profile.institute}</a>
           </p>
         </div>
       </section>

@@ -9,6 +9,7 @@ export const profileSchema = z.object({
   title: stringField,
   role: stringField,
   institute: stringField,
+  instituteUrl: stringField,
   authorName: stringField,
 });
 
