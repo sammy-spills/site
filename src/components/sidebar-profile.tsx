@@ -6,6 +6,7 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
 import type { Profile } from "@/lib/schemas/site";
+import Link from "next/link";
 
 interface SidebarProfileProps {
   profile: Profile;
@@ -25,6 +26,7 @@ export function SidebarProfile({ profile }: SidebarProfileProps) {
       <SidebarMenuItem>
         <SidebarMenuButton
           className="data-[slot=sidebar-menu-button]:!h-auto group-data-[collapsible=icon]:!p-0.5 group-data-[collapsible=icon]:!pl-[3px]"
+          render={<Link href="/" />}
           size="lg"
           tooltip={displayName}
         >
