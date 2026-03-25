@@ -4,6 +4,7 @@ import { site } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
 import { getAllContent } from "@/lib/content";
+import type { BlogFrontmatter } from "@/lib/schemas/content";
 
 function formatDateUK(dateStr: string) {
   const d = new Date(dateStr);
