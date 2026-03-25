@@ -1,7 +1,20 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { site } from "@/lib/data";
 import Image from "next/image";
+import Link from "next/link";
+import { getAllContent } from "@/lib/content";
+
+function formatDateUK(dateStr: string) {
+  const d = new Date(dateStr);
+  const day = d.getUTCDate().toString().padStart(2, "0");
+  const month = (d.getUTCMonth() + 1).toString().padStart(2, "0");
+  return `${day}-${month}-${d.getUTCFullYear()}`;
+}
+
+function formatTag(tag: string) {
+  return `#${tag.replace(/\s+/g, "-")}`;
+}
 
 const starterSections = [
   "Replace the homepage copy with your own introduction.",
@@ -10,6 +23,10 @@ const starterSections = [
 ];
 
 export default function Home() {
+  
+  const posts = getAllContent<BlogFrontmatter>("blog");
+  const featuredPost = posts[0];
+
   return (
     <div className="space-y-10">
       <section className="space-y-4 text-center">
@@ -56,6 +73,53 @@ export default function Home() {
           </Card>
         ))}
       </section>
+
+      {/* Featured Blog Post */}
+      {featuredPost && (
+        <section>
+          <h2 className="mb-4 font-semibold text-xl">Latest Post</h2>
+          <Link href={`/blog/${featuredPost.slug}`}>
+            <Card className="gap-0 overflow-hidden p-0 transition-colors hover:bg-muted/50 md:flex-row">
+              {featuredPost.metadata.image && (
+                <div className="relative aspect-[2/1] md:aspect-auto md:w-72 md:shrink-0">
+                  <Image
+                    alt={featuredPost.metadata.title}
+                    className="object-cover"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 288px"
+                    src={featuredPost.metadata.image}
+                  />
+                </div>
+              )}
+              <div className="flex flex-col gap-4 py-4">
+                <CardHeader>
+                  <CardTitle className="font-semibold">
+                    {featuredPost.metadata.title}
+                  </CardTitle>
+                  <CardDescription>
+                    {formatDateUK(featuredPost.metadata.date)}
+                  </CardDescription>
+                </CardHeader>
+                <CardContent className="space-y-3">
+                  <p className="text-muted-foreground text-sm/relaxed">
+                    {featuredPost.metadata.excerpt}
+                  </p>
+                  <div className="flex flex-wrap items-center gap-2">
+                    {featuredPost.metadata.tags.map((tag) => (
+                      <Badge key={tag} variant="secondary">
+                        {formatTag(tag)}
+                      </Badge>
+                    ))}
+                    <span className="ml-auto text-muted-foreground text-sm">
+                      Read more &rarr;
+                    </span>
+                  </div>
+                </CardContent>
+              </div>
+            </Card>
+          </Link>
+        </section>
+      )}
     </div>
   );
 }
