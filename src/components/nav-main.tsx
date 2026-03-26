@@ -21,8 +21,6 @@ import {
 
 const navItems = [
   { label: "Home", path: "/", icon: HomeIcon },
-  { label: "About", path: "/about", icon: UserIcon },
-  { label: "Projects", path: "/projects", icon: FolderOpenIcon },
   { label: "Publications", path: "/publications", icon: BookTextIcon },
   { label: "CV", path: "/cv", icon: FileTextIcon },
   { label: "Blog", path: "/blog", icon: PenLineIcon },
