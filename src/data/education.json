@@ -1,1 +1,16 @@
-[]
+[
+  {
+    "school": "University of Leeds",
+    "time": "2014 - 2018",
+    "degree": "BSc & MPhys Physics",
+    "location": "Leeds, UK",
+    "description": "Achieved First Class Honours BSc & MPhys in Physics from the University of Leeds. Final year project applied novel machine learning approaches to a Quantum Information problem in order to improve efficiency - work published in International Journal of Quantum Information."
+  },
+  {
+    "school": "Peter Symonds College",
+    "time": "2012 - 2014",
+    "degree": "A-Levels",
+    "location": "Winchester, UK",
+    "description": "Achieved A in Physics, A in Mathematics, B in Chemistry, as well as B in AS-level Further Mathematics and C in AS-level Music Technology."
+  }
+]

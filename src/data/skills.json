@@ -1,1 +1,17 @@
-[]
+[
+  {
+    "title": "Data Science Research",
+    "description": "Python, PyTorch, Tensorflow, Statistics, Causal Inference",
+    "iconName": "code"
+  },
+  {
+    "title": "Cybersecurity",
+    "description": "SQL, Visualisation, Software Development",
+    "iconName": "code"
+  },
+  {
+    "title": "Leadership",
+    "description": "People, Projects, Solution Architecture",
+    "iconName": "person"
+  }
+]

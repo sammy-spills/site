@@ -1,1 +1,37 @@
-[]
+[
+  {
+    "company": "The Alan Turing Institute",
+    "time": "November 2024 - January 2026",
+    "title": "Principal Data Scientist",
+    "location": "Cheltenham, UK",
+    "description": "Leading a stripy team of Academic, Industry and Public Sector staff to design, develop, deploy and deliver highly available Machine Learning services to TIRE’s Partner for operational & business use-cases. Most recently, bringing project vision and leadership to deliver a first-of-its-kind Retrieval-Augmented Generation capability to the whole organisation - answering over 300k questions since deployment. Gathering requirements and designing solutions for text-processing microservices, such as chunking, topic modelling and agents. Contribution to timely Expert Analysis piece in CeTAS publication."
+  },
+  {
+    "company": "The Alan Turing Institute",
+    "time": "November 2022 - November 2024",
+    "title": "Senior Data Scientist",
+    "location": "Cheltenham, UK",
+    "description": "Developing productionised, wide-scale Machine Learning services to TIRE’s Partner for operational & business use-cases as an Individual Contributor. Helping to deliver key operational capability in the form of text embedding and reranking in highly available microservices, alongside custom integrations into open source software (Haystack)."
+  },
+  {
+    "company": "HMG",
+    "time": "April 2021 - October 2022",
+    "title": "Senior Data Science Researcher",
+    "location": "Cheltenham, UK",
+    "description": "Delivering operational data science and ML reports & solutions, as well as novel self-directed data science research, within HMG in order to improve the nation’s cybersecurity. Collaborating with HMG, Academic, Industry & 2nd Party partners to  pull new research through to production. Led collaboration with Alan Turing Institute & Dstl on Optimal Decision Making - work presented at ICML 2022 ML4Cyber Workshop."
+  },
+  {
+    "company": "HMG",
+    "time": "November 2018 - April 2021",
+    "title": "Analyst",
+    "location": "Cheltenham, UK",
+    "description": "Worked as an analyst for HMG, drawing together disparate data sources using analytic and automated techniques in order to deliver high-impact end-product reporting to HMG and 2nd Party stakeholders."
+  },
+  {
+    "company": "Centre for Polar Observation and Monitoring (CPOM)",
+    "time": "June 2016 - March 2018",
+    "title": "Developer",
+    "location": "Leeds, UK",
+    "description": "Developed a cross-platform mobile application to assist in outreach for CPOM during an (extended) summer placement. Application showed historic and contemporary sea ice thickness from CPOM’s modeling outputs in a modern and intuitive way, allowing the public to interact with the data."
+  }
+]
