@@ -1,3 +1,5 @@
+import { PublicationsTabs } from "@/components/publications-tabs";
+import { publications } from "@/lib/data";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -11,9 +13,21 @@ export default function PublicationsPage() {
       <section>
         <h1 className="mb-2 font-bold text-3xl">Publications</h1>
         <p className="text-muted-foreground text-sm/relaxed">
-          No publications have been added yet.
+          A selection of my published work and research.
         </p>
       </section>
+
+      {publications.length > 0 ? (
+        <section>
+          <PublicationsTabs publications={publications} />
+        </section>
+      ) : (
+        <section>
+          <p className="text-muted-foreground text-sm/relaxed">
+            No publications have been added yet.
+          </p>
+        </section>
+      )}
     </div>
   );
 }

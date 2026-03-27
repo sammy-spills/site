@@ -2,13 +2,14 @@ import { z } from "zod";
 import awardsData from "@/data/awards.json";
 import educationData from "@/data/education.json";
 import experienceData from "@/data/experience.json";
+import publicationsData from "@/data/publications.json";
 import presentationsData from "@/data/presentations.json";
 import professionalServiceData from "@/data/professional-service.json";
 import projectsData from "@/data/projects.json";
 import researchAreasData from "@/data/research-areas.json";
 import siteData from "@/data/site.json";
 import skillsData from "@/data/skills.json";
-import { projectSchema, researchAreaSchema } from "@/lib/schemas/content";
+import { projectSchema, publicationSchema, researchAreaSchema } from "@/lib/schemas/content";
 import {
   awardSchema,
   educationSchema,
@@ -29,6 +30,9 @@ export const skills = z.array(skillSchema).parse(skillsData);
 export const presentations = z
   .array(presentationSchema)
   .parse(presentationsData);
+export const publications = z
+  .array(publicationSchema)
+  .parse(publicationsData);
 export const researchAreas = z
   .array(researchAreaSchema)
   .parse(researchAreasData);
