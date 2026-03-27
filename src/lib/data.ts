@@ -30,9 +30,14 @@ export const skills = z.array(skillSchema).parse(skillsData);
 export const presentations = z
   .array(presentationSchema)
   .parse(presentationsData);
+
+const publicationItems = Array.isArray(publicationsData)
+  ? publicationsData
+  : publicationsData.items;
+
 export const publications = z
   .array(publicationSchema)
-  .parse(publicationsData);
+  .parse(publicationItems);
 export const researchAreas = z
   .array(researchAreaSchema)
   .parse(researchAreasData);

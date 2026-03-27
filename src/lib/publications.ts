@@ -25,6 +25,17 @@ interface ZoteroItem {
   repository?: string;
 }
 
+interface NormalizedPublication {
+  title: string;
+  authors: string;
+  editors?: string;
+  venue: string;
+  date: string;
+  type: string;
+  link?: string;
+  abstract?: string;
+}
+
 const EXCLUDED_TYPES = new Set(["attachment", "note"]);
 
 const TYPE_LABELS: Record<string, string> = {
@@ -82,10 +93,20 @@ function parseDateValue(date: string): number {
   return 0;
 }
 
-const items = (rawData as { items: ZoteroItem[] }).items
-  .filter((item) => !EXCLUDED_TYPES.has(item.itemType) && item.title)
-  .map((item) => {
+function isZoteroItem(item: ZoteroItem | NormalizedPublication): item is ZoteroItem {
+  return "itemType" in item;
+}
+
+function normalizePublication(
+  item: ZoteroItem | NormalizedPublication,
+): NormalizedPublication | null {
+  if (isZoteroItem(item)) {
+    if (EXCLUDED_TYPES.has(item.itemType) || !item.title) {
+      return null;
+    }
+
     const { authors, editors } = formatCreators(item.creators ?? []);
+
     return {
       title: item.title,
       authors,
@@ -96,7 +117,18 @@ const items = (rawData as { items: ZoteroItem[] }).items
       link: getLink(item),
       abstract: item.abstractNote,
     };
-  })
+  }
+
+  if (!item.title) {
+    return null;
+  }
+
+  return item;
+}
+
+const items = (rawData as { items: Array<ZoteroItem | NormalizedPublication> }).items
+  .map((item) => normalizePublication(item))
+  .filter((item): item is NormalizedPublication => item !== null)
   .sort((a, b) => parseDateValue(b.date) - parseDateValue(a.date));
 
 export const publications = z.array(publicationSchema).parse(items);
