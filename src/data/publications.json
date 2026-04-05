@@ -1,5 +1,29 @@
 {
   "items": [
+	  {
+		  "title": "TimeCluster with PCA is Equivalent to Subspace Identification of Linear Dynamical Systems",
+		  "authors": "Hines, C. L.; Spillard, S.; Martin, D., P.",
+		  "venue": "arXiv",
+		  "date": "2025",
+		  "type": "Preprint",
+		  "link": "https://doi.org/10.48550/arXiv.2509.12895"
+	  },
+	  {
+		  "title": "Brief analysis of DeepSeel R1 and its implications for Generative AI",
+		  "authors": "Mercer, Sarah; Spillard, Samuel; Martin, Daniel P.",
+		  "venue": "arXiv",
+		  "date": "2025",
+		  "type": "Preprint",
+		  "link": "https://doi.org/10.48550/arXiv.2502.02523"
+	  },
+	  {
+		  "title": "Developing Optimal Causal Cyber-defence Agents via Cyber Security Simulation",
+		  "authors": "Andrew, A.; Spillard, S.; Collyer, J.; Dhir, N.",
+		  "venue": "ML4Cyber Workshop at 39th International Conference on Machine Learning (ICML)",
+		  "date": "2022",
+		  "type": "Workshop",
+		  "link": "https://doi.org/10.48550/arXiv.2207.12355"
+	  },
   {
     "title": "Machine Learning Entanglement Freedom",
     "authors": "Spillard, S.; Turner, C., J.; Meichanetzidis, K",
