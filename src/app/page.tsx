@@ -17,10 +17,15 @@ function formatTag(tag: string) {
   return `#${tag.replace(/\s+/g, "-")}`;
 }
 
-const starterSections = [
-  "Replace the homepage copy with your own introduction.",
-  "Add projects, writing, or services to the navigation pages.",
-  "Update the site settings, social links, and SEO metadata.",
+const aoes = [
+	{
+		"title": "AI & ML Research",
+		"description": "Developing operational and mission-tested AI & ML systems at scale for the UK public sector. Focus on bringing novel and cutting-edge research into the hands of end-users with end-to-end research engineering."
+	},
+	{
+		"title": "Cyber Security",
+		"description": "Experience in protecting the UK's cyber space, applying advanced AI techniques to understand the threat landscape, as well as research into how novel AI research can be applied at a national level to secure the UK from advanced threats."
+	},
 ];
 
 export default function Home() {
@@ -60,19 +65,22 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="grid gap-4 md:grid-cols-3">
-        {starterSections.map((section) => (
-          <Card key={section}>
+      <section>
+      <h2 className="mb-4 font-semibold text-xl">Areas of Expertise</h2>
+      <div className="grid gap-4 md:grid-cols-2">
+        {aoes.map((section) => (
+          <Card key={section.title}>
             <CardHeader>
-              <CardTitle className="text-base">Next step</CardTitle>
+              <CardTitle className="text-base">{section.title}</CardTitle>
             </CardHeader>
             <CardContent>
               <p className="text-muted-foreground text-sm/relaxed">
-                {section}
+                {section.description}
               </p>
             </CardContent>
           </Card>
         ))}
+	</div>
       </section>
 
       {/* Featured Blog Post */}
