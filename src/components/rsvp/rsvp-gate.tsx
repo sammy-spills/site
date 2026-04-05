@@ -1,6 +1,6 @@
 "use client";
 
-import { FormEvent, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import {
   invitees,
   type InviteeRecord,
@@ -12,6 +12,46 @@ type RoomShare = "yes" | "no" | "no-preference";
 type Accommodation = "yes" | "no";
 
 const weddingRsvpEndpoint = process.env.NEXT_PUBLIC_WEDDING_RSVP_ENDPOINT;
+const unlockedInviteCookieName = "wedding_rsvp_unlocked_invite_hash";
+const submissionsCookieName = "wedding_rsvp_submissions";
+const cookieMaxAgeSeconds = 60 * 60 * 24 * 365;
+
+function getCookieValue(name: string): string | null {
+  const cookie = document.cookie
+    .split("; ")
+    .find((entry) => entry.startsWith(`${name}=`));
+  if (!cookie) {
+    return null;
+  }
+
+  return decodeURIComponent(cookie.split("=")[1] ?? "");
+}
+
+function setCookieValue(name: string, value: string) {
+  document.cookie = `${name}=${encodeURIComponent(value)}; Max-Age=${cookieMaxAgeSeconds}; Path=/; SameSite=Lax`;
+}
+
+function getSubmissionMap(): Record<string, string> {
+  const value = getCookieValue(submissionsCookieName);
+  if (!value) {
+    return {};
+  }
+
+  try {
+    const parsed = JSON.parse(value) as unknown;
+    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
+      return {};
+    }
+
+    return Object.fromEntries(
+      Object.entries(parsed).filter(
+        (entry): entry is [string, string] => typeof entry[1] === "string",
+      ),
+    );
+  } catch {
+    return {};
+  }
+}
 
 async function sha256(input: string): Promise<string> {
   const encoded = new TextEncoder().encode(input);
@@ -40,6 +80,23 @@ export function RSVPGate() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitMessage, setSubmitMessage] = useState("");
   const [submitError, setSubmitError] = useState("");
+  const [hasPreviouslySubmitted, setHasPreviouslySubmitted] = useState(false);
+
+  useEffect(() => {
+    const unlockedInviteHash = getCookieValue(unlockedInviteCookieName);
+    if (!unlockedInviteHash) {
+      return;
+    }
+
+    const unlockedInvitee = inviteesByCode.get(unlockedInviteHash);
+    if (!unlockedInvitee) {
+      return;
+    }
+
+    setInvitee(unlockedInvitee);
+    const submissionMap = getSubmissionMap();
+    setHasPreviouslySubmitted(Boolean(submissionMap[unlockedInvitee.codeHash]));
+  }, [inviteesByCode]);
 
   async function handleGateSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -59,6 +116,9 @@ export function RSVPGate() {
     }
 
     setInvitee(inviteeMatch);
+    setCookieValue(unlockedInviteCookieName, inviteeMatch.codeHash);
+    const submissionMap = getSubmissionMap();
+    setHasPreviouslySubmitted(Boolean(submissionMap[inviteeMatch.codeHash]));
   }
 
   async function handleRsvpSubmit(event: FormEvent<HTMLFormElement>) {
@@ -104,6 +164,10 @@ export function RSVPGate() {
         throw new Error(`RSVP submission failed with status ${response.status}`);
       }
 
+      const submissionMap = getSubmissionMap();
+      submissionMap[invitee.codeHash] = new Date().toISOString();
+      setCookieValue(submissionsCookieName, JSON.stringify(submissionMap));
+      setHasPreviouslySubmitted(true);
       setSubmitMessage("Thanks! Your RSVP has been submitted.");
     } catch {
       setSubmitError("We couldn't submit your RSVP right now. Please try again shortly.");
@@ -190,6 +254,12 @@ export function RSVPGate() {
             <p className="mt-2 text-sm text-muted-foreground">
               Please reply by March 1, 2027. Let us know if plans change after submitting.
             </p>
+            {hasPreviouslySubmitted ? (
+              <p className="mt-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
+                We already have an RSVP from you, but you can resubmit this form anytime to
+                update your answers.
+              </p>
+            ) : null}
 
             <form className="mt-5 space-y-4" onSubmit={handleRsvpSubmit}>
               <label className="flex flex-col gap-2 text-sm font-medium">
