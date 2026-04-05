@@ -117,7 +117,7 @@ export function RSVPGate() {
       <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <h1 className="text-3xl font-semibold tracking-tight">Sam & Laura&apos;s Celebration</h1>
         <p className="mt-3 text-muted-foreground">
-          Please enter your unique invite code to view your event details and RSVP.
+          Please enter your unique invite code to view your event details and RSVP.<br />If you have any questions, email us at: <a href="mailto:rsvp@spillard.io?subject=Question%20About%20RSVP">rsvp@spillard.io</a>
         </p>
       </section>
 
@@ -157,8 +157,10 @@ export function RSVPGate() {
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
                 <dt className="font-medium text-muted-foreground">Date</dt>
                 <dd>Saturday, June 26, 2027</dd>
+                <dt className="font-medium text-muted-foreground">Time</dt>
+                <dd>Arrive from 13:00 PM</dd>
                 <dt className="font-medium text-muted-foreground">Family Reception</dt>
-                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a> arrive from 13:00 PM</dd>
+                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a></dd>
                 <dt className="font-medium text-muted-foreground">Main Reception</dt>
                 <dd>Guests will arrive from 14:30 PM</dd>
                 <dt className="font-medium text-muted-foreground">Dress code</dt>
@@ -168,8 +170,10 @@ export function RSVPGate() {
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
                 <dt className="font-medium text-muted-foreground">Date</dt>
                 <dd>Saturday, June 26, 2027</dd>
+                <dt className="font-medium text-muted-foreground">Time</dt>
+                <dd>Starts at 14:30 PM</dd>
                 <dt className="font-medium text-muted-foreground">Reception</dt>
-                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a> from 14:30 PM</dd>
+                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a></dd>
                 <dt className="font-medium text-muted-foreground">Accommodation</dt>
                 <dd>
 		  Glamping pods sleeping up to 4 people are available on-site.<br />
