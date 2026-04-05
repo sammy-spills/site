@@ -156,28 +156,27 @@ export function RSVPGate() {
             {invitee.type === "family" ? (
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
                 <dt className="font-medium text-muted-foreground">Date</dt>
-                <dd>Saturday, June 12, 2027</dd>
-                <dt className="font-medium text-muted-foreground">Family brunch</dt>
-                <dd>Friday, June 11 at 11:00 AM - The Riverside Barn</dd>
-                <dt className="font-medium text-muted-foreground">Ceremony</dt>
-                <dd>St. Mary&apos;s Chapel, York at 2:00 PM</dd>
-                <dt className="font-medium text-muted-foreground">Photos</dt>
-                <dd>Immediate family photos from 3:15 PM</dd>
-                <dt className="font-medium text-muted-foreground">Reception</dt>
-                <dd>The Riverside Barn from 4:00 PM</dd>
+                <dd>Saturday, June 26, 2027</dd>
+                <dt className="font-medium text-muted-foreground">Family Reception</dt>
+                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a> arrive from 13:00 PM</dd>
+                <dt className="font-medium text-muted-foreground">Main Reception</dt>
+                <dd>Guests will arrive from 14:30 PM</dd>
+                <dt className="font-medium text-muted-foreground">Dress code</dt>
+                <dd>Garden Party Vibes</dd>
               </dl>
             ) : (
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
                 <dt className="font-medium text-muted-foreground">Date</dt>
-                <dd>Saturday, June 12, 2027</dd>
-                <dt className="font-medium text-muted-foreground">Ceremony</dt>
-                <dd>St. Mary&apos;s Chapel, York at 2:00 PM</dd>
+                <dd>Saturday, June 26, 2027</dd>
                 <dt className="font-medium text-muted-foreground">Reception</dt>
-                <dd>The Riverside Barn from 4:00 PM</dd>
+                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a> from 14:30 PM</dd>
                 <dt className="font-medium text-muted-foreground">Accommodation</dt>
-                <dd>Optional shared rooms are available near the venue.</dd>
+                <dd>
+		  Glamping pods sleeping up to 4 people are available on-site.<br />
+		  Please indicate in the form below whether you would like to stay in one of these, and whether you are willing to share with another couple. Breakfast will be provided for those staying on-site.
+		</dd>
                 <dt className="font-medium text-muted-foreground">Dress code</dt>
-                <dd>Formal / black tie optional</dd>
+                <dd>Garden Party Vibes</dd>
               </dl>
             )}
           </section>
@@ -198,7 +197,6 @@ export function RSVPGate() {
                 >
                   <option value="yes">Yes, I&apos;ll be there</option>
                   <option value="no">No, I can&apos;t make it</option>
-                  <option value="maybe">Maybe (I&apos;ll confirm soon)</option>
                 </select>
               </label>
 
@@ -215,7 +213,7 @@ export function RSVPGate() {
               {invitee.type === "guest" ? (
                 <>
                   <label className="flex flex-col gap-2 text-sm font-medium">
-                    Happy to stay in provided accommodation?
+                    Happy to stay in provided accommodation? (See details above)
                     <select
                       className="h-10 rounded-md border border-input bg-background px-3 text-sm"
                       onChange={(event) => setAccommodation(event.target.value as Accommodation)}
@@ -227,7 +225,7 @@ export function RSVPGate() {
                   </label>
 
                   <label className="flex flex-col gap-2 text-sm font-medium">
-                    Willing to share a room in provided accommodation?
+                    Willing to share a pod in provided accommodation?
                     <select
                       className="h-10 rounded-md border border-input bg-background px-3 text-sm"
                       onChange={(event) => setRoomShare(event.target.value as RoomShare)}
@@ -238,6 +236,18 @@ export function RSVPGate() {
                       <option value="no-preference">No preference</option>
                     </select>
                   </label>
+
+		  <label className="flex flex-col gap-2 text-sm font-medium">
+                How will you be arriving?
+                <textarea
+                  className="min-h-24 rounded-md border border-input bg-background px-3 py-2 text-sm"
+                  onChange={(event) => setTransportation(event.target.value)}
+                  placeholder={"E.g. train, driving etc.\nIf lots of people are taking public transport, we may be able to arrange travel to the house as it is a very rural location!"}
+                  required
+                  value={transportation}
+                />
+              </label>
+
                 </>
               ) : null}
 
@@ -250,17 +260,6 @@ export function RSVPGate() {
                   required
                   type="email"
                   value={email}
-                />
-              </label>
-
-              <label className="flex flex-col gap-2 text-sm font-medium">
-                How will you be arriving?
-                <textarea
-                  className="min-h-24 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                  onChange={(event) => setTransportation(event.target.value)}
-                  placeholder="Train, car, flight, etc."
-                  required
-                  value={transportation}
                 />
               </label>
 
