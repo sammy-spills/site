@@ -5,7 +5,7 @@ import {
   invitees,
   type InviteeRecord,
   normalizeInviteCode,
-} from "@/lib/wedding/invitees";
+} from "@/lib/rsvp/invitees";
 
 type AttendanceStatus = "yes" | "no" | "maybe";
 type RoomShare = "yes" | "no" | "no-preference";
@@ -21,7 +21,7 @@ async function sha256(input: string): Promise<string> {
     .join("");
 }
 
-export function WeddingGate() {
+export function RSVPGate() {
   const inviteesByCode = useMemo(
     () => new Map(invitees.map((invitee) => [invitee.codeHash, invitee])),
     [],
@@ -115,7 +115,7 @@ export function WeddingGate() {
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-12">
       <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-        <h1 className="text-3xl font-semibold tracking-tight">Alex & Jamie&apos;s Wedding</h1>
+        <h1 className="text-3xl font-semibold tracking-tight">Sam & Laura&apos;s Celebration</h1>
         <p className="mt-3 text-muted-foreground">
           Please enter your unique invite code to view your event details and RSVP.
         </p>

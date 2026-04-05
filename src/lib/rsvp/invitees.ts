@@ -8,14 +8,14 @@ export type InviteeRecord = {
 
 export const invitees: readonly InviteeRecord[] = [
   {
-    // Example code: FAM-2027-ALPHA
-    codeHash: "a80f7f4f0a4f754d50d132a6d89b33798f34ca8ac98a6ed5b188756f9754a8c5",
+    // Example code: TEST-KEY
+    codeHash: "316164c75800e7839d54cfc09b224513e729ac9a350c7cc11427a037928352ed",
     name: "Example Family Member",
     type: "family",
   },
   {
-    // Example code: GST-2027-BRAVO
-    codeHash: "4b97e9ca9bb4bcf0d5a9d0fda2e7b062f94995e929149fbf61d40fd0de5f8ce4",
+    // Example code: TEST-GUEST
+    codeHash: "e5972d1d7ce6af31674839962939b8b32b39b114217895ff6667b64c5335ac6a",
     name: "Example Guest",
     type: "guest",
   },

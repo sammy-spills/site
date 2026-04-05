@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
-import { WeddingGate } from "@/components/wedding/wedding-gate";
+import { RSVPGate } from "@/components/rsvp/rsvp-gate";
 
 export const metadata: Metadata = {
-  title: "Wedding",
+  title: "RSVP",
   robots: {
     index: false,
     follow: false,
@@ -18,6 +18,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function WeddingPage() {
-  return <WeddingGate />;
+export default function RSVPPage() {
+  return <RSVPGate/>;
 }
