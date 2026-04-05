@@ -56,7 +56,7 @@ export default function BlogIndexPage() {
                       alt={post.metadata.title}
                       className="object-cover"
                       fill
-                      sizes="(min-width: 768px) 100vw, 288px"
+                      sizes="(min-width: 768px) 288px, 100vw"
                       src={post.metadata.image}
                     />
                   </div>
