@@ -39,8 +39,8 @@
   --sidebar-accent-foreground: oklch(0.2178 0 0);
   --sidebar-border: oklch(0.8986 0.0258 97.1423);
   --sidebar-ring: oklch(0.7414 0.0738 84.5946);
-  --font-sans: Inter, -apple-system, sans-serif;
-  --font-serif: Georgia, serif;
+  --font-sans: var(--font-fraunces), serif;
+  --font-serif: var(--font-fraunces), serif;
   --font-mono: JetBrains Mono, monospace;
   --radius: 0.75rem;
   --shadow-2xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.03);
@@ -114,8 +114,8 @@
     0px 10px 25px 0px hsl(0 0% 0% / 0.4), 0px 8px 10px -1px hsl(0 0% 0% / 0.4);
   --shadow-2xl: 0px 10px 25px 0px hsl(0 0% 0% / 1);
   --radius: 0.75rem;
-  --font-sans: Inter, -apple-system, sans-serif;
-  --font-serif: Georgia, serif;
+  --font-sans: var(--font-fraunces), serif;
+  --font-serif: var(--font-fraunces), serif;
   --font-mono: JetBrains Mono, monospace;
   --shadow-color: #000000;
   --shadow-opacity: 0.4;
@@ -161,9 +161,9 @@
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
 
-  --font-sans: Inter, -apple-system, sans-serif;
+  --font-sans: var(--font-fraunces), serif;
   --font-mono: JetBrains Mono, monospace;
-  --font-serif: Georgia, serif;
+  --font-serif: var(--font-fraunces), serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

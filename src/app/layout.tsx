@@ -1,9 +1,16 @@
 import type { Metadata } from "next";
+import { Fraunces } from "next/font/google";
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { siteConfig } from "@/lib/site-config";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/data";
 import "./globals.css";
+
+const fraunces = Fraunces({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-fraunces",
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.siteUrl),
@@ -38,8 +45,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className="antialiased">
+    <html lang="en" suppressHydrationWarning className={fraunces.variable}>
+      <body className={`${fraunces.className} antialiased`}>
         <ThemeProvider>
           <SidebarLayout>{children}</SidebarLayout>
         </ThemeProvider>
