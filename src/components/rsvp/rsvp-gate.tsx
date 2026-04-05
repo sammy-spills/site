@@ -267,7 +267,6 @@ export function RSVPGate() {
                 />
               </label>
 
-	      
               {submitError ? <p className="text-sm text-destructive">{submitError}</p> : null}
               {submitMessage ? <p className="text-sm text-emerald-600">{submitMessage}</p> : null}
 
