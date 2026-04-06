@@ -20,6 +20,7 @@ jobs:
     env:
       NEXT_PUBLIC_SITE_URL: https://sam.spillard.io
       NEXT_PUBLIC_BASE_PATH: /
+      NEXT_PUBLIC_FORMSPARK_FORM_ID: Smfa7xo2v
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4

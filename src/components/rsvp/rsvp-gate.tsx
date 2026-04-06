@@ -11,7 +11,11 @@ type AttendanceStatus = "yes" | "no" | "maybe";
 type RoomShare = "yes" | "no" | "no-preference";
 type Accommodation = "yes" | "no";
 
-const weddingRsvpEndpoint = process.env.NEXT_PUBLIC_WEDDING_RSVP_ENDPOINT;
+const formSparkFormId = process.env.NEXT_PUBLIC_FORMSPARK_FORM_ID;
+const configuredRsvpEndpoint = process.env.NEXT_PUBLIC_WEDDING_RSVP_ENDPOINT;
+const weddingRsvpEndpoint =
+  configuredRsvpEndpoint ??
+  (formSparkFormId ? `https://submit-form.com/${formSparkFormId}` : undefined);
 const unlockedInviteCookieName = "wedding_rsvp_unlocked_invite_hash";
 const submissionsCookieName = "wedding_rsvp_submissions";
 const cookieMaxAgeSeconds = 60 * 60 * 24 * 365;
@@ -144,6 +148,7 @@ export function RSVPGate() {
       const response = await fetch(weddingRsvpEndpoint, {
         method: "POST",
         headers: {
+          Accept: "application/json",
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
@@ -337,10 +342,19 @@ export function RSVPGate() {
                 />
               </label>
 
-              {submitError ? <p className="text-sm text-destructive">{submitError}</p> : null}
-              {submitMessage ? <p className="text-sm text-emerald-600">{submitMessage}</p> : null}
+              {submitError ? (
+                <p aria-live="assertive" className="text-sm text-destructive" role="alert">
+                  {submitError}
+                </p>
+              ) : null}
+              {submitMessage ? (
+                <p aria-live="polite" className="text-sm text-emerald-600">
+                  {submitMessage}
+                </p>
+              ) : null}
 
               <button
+                aria-disabled={isSubmitting}
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground disabled:opacity-60"
                 disabled={isSubmitting}
                 type="submit"
