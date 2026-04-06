@@ -1,6 +1,7 @@
 "use client";
 
 import { FormEvent, useEffect, useMemo, useState } from "react";
+import { ExternalLink } from "lucide-react";
 import {
   invitees,
   type InviteeRecord,
@@ -10,6 +11,7 @@ import {
 type AttendanceStatus = "yes" | "no" | "maybe";
 type RoomShare = "yes" | "no" | "no-preference";
 type Accommodation = "yes" | "no";
+const venueMapUrl = "https://maps.app.goo.gl/qyo7KX7283WsTqxL7";
 
 const formSparkFormId = process.env.NEXT_PUBLIC_FORMSPARK_FORM_ID;
 const configuredRsvpEndpoint = process.env.NEXT_PUBLIC_WEDDING_RSVP_ENDPOINT;
@@ -70,6 +72,9 @@ export function RSVPGate() {
     () => new Map(invitees.map((invitee) => [invitee.codeHash, invitee])),
     [],
   );
+
+  const venueMapLinkClasses =
+    "inline-flex items-center gap-1 font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm";
 
   const [inviteCode, setInviteCode] = useState("");
   const [gateError, setGateError] = useState("");
@@ -229,7 +234,18 @@ export function RSVPGate() {
                 <dt className="font-medium text-muted-foreground">Time</dt>
                 <dd>Arrive from 13:00 PM</dd>
                 <dt className="font-medium text-muted-foreground">Family Reception</dt>
-                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a></dd>
+                <dd>
+                  <a
+                    className={venueMapLinkClasses}
+                    href={venueMapUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span>The Old Rectory, Hammeringham, LN9 6PF</span>
+                    <ExternalLink aria-hidden="true" className="size-3.5" />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </dd>
                 <dt className="font-medium text-muted-foreground">Main Reception</dt>
                 <dd>Guests will arrive from 14:30 PM</dd>
                 <dt className="font-medium text-muted-foreground">Dress code</dt>
@@ -242,7 +258,18 @@ export function RSVPGate() {
                 <dt className="font-medium text-muted-foreground">Time</dt>
                 <dd>Starts at 14:30 PM</dd>
                 <dt className="font-medium text-muted-foreground">Reception</dt>
-                <dd><a href="https://maps.app.goo.gl/qyo7KX7283WsTqxL7">The Old Rectory, Hammeringham, LN9 6PF</a></dd>
+                <dd>
+                  <a
+                    className={venueMapLinkClasses}
+                    href={venueMapUrl}
+                    rel="noopener noreferrer"
+                    target="_blank"
+                  >
+                    <span>The Old Rectory, Hammeringham, LN9 6PF</span>
+                    <ExternalLink aria-hidden="true" className="size-3.5" />
+                    <span className="sr-only">(opens in a new tab)</span>
+                  </a>
+                </dd>
                 <dt className="font-medium text-muted-foreground">Accommodation</dt>
                 <dd>
 		  Glamping pods sleeping up to 4 people are available on-site.<br />
