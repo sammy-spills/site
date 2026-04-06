@@ -37,6 +37,10 @@ function setCookieValue(name: string, value: string) {
   document.cookie = `${name}=${encodeURIComponent(value)}; Max-Age=${cookieMaxAgeSeconds}; Path=/; SameSite=Lax`;
 }
 
+function clearCookieValue(name: string) {
+  document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax`;
+}
+
 function getSubmissionMap(): Record<string, string> {
   const value = getCookieValue(submissionsCookieName);
   if (!value) {
@@ -186,6 +190,16 @@ export function RSVPGate() {
     }
   }
 
+  function resetInvitationAccess() {
+    setInvitee(null);
+    setInviteCode("");
+    setGateError("");
+    setSubmitMessage("");
+    setSubmitError("");
+    setHasPreviouslySubmitted(false);
+    clearCookieValue(unlockedInviteCookieName);
+  }
+
   return (
     <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-12">
       <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
@@ -226,6 +240,13 @@ export function RSVPGate() {
             <p className="mt-2 text-sm text-muted-foreground">
               You&apos;re viewing the {invitee.type === "family" ? "family" : "guest"} event plan.
             </p>
+            <button
+              className="mt-4 inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium"
+              onClick={resetInvitationAccess}
+              type="button"
+            >
+              Enter a different invite code
+            </button>
 
             {invitee.type === "family" ? (
               <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
