@@ -34,8 +34,14 @@ echo -n "FAM-2027-ALPHA" | tr -d "[:space:]" | tr "[:lower:]" "[:upper:]" | shas
 
 ### 2) Configure RSVP delivery
 
-Set `NEXT_PUBLIC_WEDDING_RSVP_ENDPOINT` in your deployment environment to an endpoint that accepts
-JSON POST requests (e.g., Formspree/webhook).
+Set either:
+
+- `NEXT_PUBLIC_FORMSPARK_FORM_ID` (recommended) to your FormSpark form ID. The site submits to
+  `https://submit-form.com/<FORM_ID>` directly from the browser.
+- `NEXT_PUBLIC_WEDDING_RSVP_ENDPOINT` to override the endpoint URL explicitly.
+
+Both options use a client-side `fetch` request, so they work in static deployments such as GitHub
+Pages.
 
 ### 3) DNS + hosting
 
