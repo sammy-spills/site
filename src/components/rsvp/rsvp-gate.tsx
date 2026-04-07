@@ -1,13 +1,14 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { ExternalLink } from "lucide-react";
-import { getLatestRsvp, type RsvpData, submitRsvp } from "@/lib/rsvp/firestore";
 import {
-  invitees,
-  type InviteeRecord,
-  normalizeInviteCode,
-} from "@/lib/rsvp/invitees";
+  getInviteeByCodeHash,
+  getLatestRsvp,
+  type RsvpData,
+  submitRsvp,
+} from "@/lib/rsvp/firestore";
+import { type InviteeRecord, normalizeInviteCode } from "@/lib/rsvp/invitees";
 
 type AttendanceStatus = "yes" | "no" | "maybe";
 type RoomShare = "yes" | "no" | "no-preference";
@@ -46,11 +47,6 @@ async function sha256(input: string): Promise<string> {
 }
 
 export function RSVPGate() {
-  const inviteesByCode = useMemo(
-    () => new Map(invitees.map((invitee) => [invitee.codeHash, invitee])),
-    [],
-  );
-
   const venueMapLinkClasses =
     "inline-flex items-center gap-1 font-medium text-primary underline underline-offset-4 transition-colors hover:text-primary/80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 rounded-sm";
 
@@ -69,6 +65,7 @@ export function RSVPGate() {
   const [submitError, setSubmitError] = useState("");
   const [hasPreviouslySubmitted, setHasPreviouslySubmitted] = useState(false);
   const [isLoadingExistingRsvp, setIsLoadingExistingRsvp] = useState(false);
+  const [isCheckingInviteCode, setIsCheckingInviteCode] = useState(false);
   const latestRsvpRequestId = useRef(0);
 
   function resetFormToDefaults() {
@@ -132,14 +129,38 @@ export function RSVPGate() {
       return;
     }
 
-    const unlockedInvitee = inviteesByCode.get(unlockedInviteHash);
-    if (!unlockedInvitee) {
-      return;
-    }
+    let isMounted = true;
+    setIsCheckingInviteCode(true);
 
-    setInvitee(unlockedInvitee);
-    void loadLatestRsvp(unlockedInvitee);
-  }, [inviteesByCode]);
+    void (async () => {
+      try {
+        const unlockedInvitee = await getInviteeByCodeHash(unlockedInviteHash);
+
+        if (!isMounted || !unlockedInvitee) {
+          clearCookieValue(unlockedInviteCookieName);
+          return;
+        }
+
+        setInvitee(unlockedInvitee);
+        void loadLatestRsvp(unlockedInvitee);
+      } catch (error) {
+        if (!isMounted) {
+          return;
+        }
+
+        console.error("Failed to restore invitation access:", error);
+        clearCookieValue(unlockedInviteCookieName);
+      } finally {
+        if (isMounted) {
+          setIsCheckingInviteCode(false);
+        }
+      }
+    })();
+
+    return () => {
+      isMounted = false;
+    };
+  }, []);
 
   async function handleGateSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -151,18 +172,27 @@ export function RSVPGate() {
       return;
     }
 
-    const codeHash = await sha256(normalizedCode);
-    const inviteeMatch = inviteesByCode.get(codeHash);
-    if (!inviteeMatch) {
-      setGateError("Sorry, we couldn't find a matching invitation for that code.");
-      return;
-    }
+    setIsCheckingInviteCode(true);
 
-    setInvitee(inviteeMatch);
-    setCookieValue(unlockedInviteCookieName, inviteeMatch.codeHash);
-    setSubmitMessage("");
-    setSubmitError("");
-    void loadLatestRsvp(inviteeMatch);
+    try {
+      const codeHash = await sha256(normalizedCode);
+      const inviteeMatch = await getInviteeByCodeHash(codeHash);
+      if (!inviteeMatch) {
+        setGateError("Sorry, we couldn't find a matching invitation for that code.");
+        return;
+      }
+
+      setInvitee(inviteeMatch);
+      setCookieValue(unlockedInviteCookieName, inviteeMatch.codeHash);
+      setSubmitMessage("");
+      setSubmitError("");
+      void loadLatestRsvp(inviteeMatch);
+    } catch (error) {
+      console.error("Invite lookup failed:", error);
+      setGateError("We couldn't validate your invite code right now. Please try again.");
+    } finally {
+      setIsCheckingInviteCode(false);
+    }
   }
 
   async function handleRsvpSubmit(event: FormEvent<HTMLFormElement>) {
@@ -236,10 +266,11 @@ export function RSVPGate() {
             </label>
             {gateError ? <p className="text-sm text-destructive">{gateError}</p> : null}
             <button
+              disabled={isCheckingInviteCode}
               className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
               type="submit"
             >
-              Continue
+              {isCheckingInviteCode ? "Checking…" : "Continue"}
             </button>
           </form>
         </section>
