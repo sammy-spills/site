@@ -1,7 +1,8 @@
 "use client";
 
-import { FormEvent, useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { ExternalLink } from "lucide-react";
+import { getLatestRsvp, type RsvpData, submitRsvp } from "@/lib/rsvp/firestore";
 import {
   invitees,
   type InviteeRecord,
@@ -13,13 +14,8 @@ type RoomShare = "yes" | "no" | "no-preference";
 type Accommodation = "yes" | "no";
 const venueMapUrl = "https://maps.app.goo.gl/qyo7KX7283WsTqxL7";
 
-const formSparkFormId = process.env.NEXT_PUBLIC_FORMSPARK_FORM_ID;
-const configuredRsvpEndpoint = process.env.NEXT_PUBLIC_WEDDING_RSVP_ENDPOINT;
-const weddingRsvpEndpoint =
-  configuredRsvpEndpoint ??
-  (formSparkFormId ? `https://submit-form.com/${formSparkFormId}` : undefined);
 const unlockedInviteCookieName = "wedding_rsvp_unlocked_invite_hash";
-const submissionsCookieName = "wedding_rsvp_submissions";
+const legacySubmissionsCookieName = "wedding_rsvp_submissions";
 const cookieMaxAgeSeconds = 60 * 60 * 24 * 365;
 
 function getCookieValue(name: string): string | null {
@@ -39,28 +35,6 @@ function setCookieValue(name: string, value: string) {
 
 function clearCookieValue(name: string) {
   document.cookie = `${name}=; Max-Age=0; Path=/; SameSite=Lax`;
-}
-
-function getSubmissionMap(): Record<string, string> {
-  const value = getCookieValue(submissionsCookieName);
-  if (!value) {
-    return {};
-  }
-
-  try {
-    const parsed = JSON.parse(value) as unknown;
-    if (!parsed || typeof parsed !== "object" || Array.isArray(parsed)) {
-      return {};
-    }
-
-    return Object.fromEntries(
-      Object.entries(parsed).filter(
-        (entry): entry is [string, string] => typeof entry[1] === "string",
-      ),
-    );
-  } catch {
-    return {};
-  }
 }
 
 async function sha256(input: string): Promise<string> {
@@ -94,8 +68,65 @@ export function RSVPGate() {
   const [submitMessage, setSubmitMessage] = useState("");
   const [submitError, setSubmitError] = useState("");
   const [hasPreviouslySubmitted, setHasPreviouslySubmitted] = useState(false);
+  const [isLoadingExistingRsvp, setIsLoadingExistingRsvp] = useState(false);
+  const latestRsvpRequestId = useRef(0);
+
+  function resetFormToDefaults() {
+    setAttendanceStatus("yes");
+    setDietaryRequirements("");
+    setAccommodation("yes");
+    setRoomShare("no-preference");
+    setEmail("");
+    setTransportation("");
+  }
+
+  function populateFormFromRsvp(rsvp: RsvpData | null) {
+    if (!rsvp) {
+      resetFormToDefaults();
+      setHasPreviouslySubmitted(false);
+      return;
+    }
+
+    setAttendanceStatus(rsvp.attendanceStatus);
+    setDietaryRequirements(rsvp.dietaryRequirements);
+    setAccommodation(rsvp.accommodation ?? "yes");
+    setRoomShare(rsvp.roomShare ?? "no-preference");
+    setEmail(rsvp.email);
+    setTransportation(rsvp.transportation ?? "");
+    setHasPreviouslySubmitted(true);
+  }
+
+  async function loadLatestRsvp(unlockedInvitee: InviteeRecord) {
+    const requestId = ++latestRsvpRequestId.current;
+    setIsLoadingExistingRsvp(true);
+    setSubmitError("");
+
+    try {
+      const latestRsvp = await getLatestRsvp(unlockedInvitee.codeHash);
+      if (requestId !== latestRsvpRequestId.current) {
+        return;
+      }
+
+      populateFormFromRsvp(latestRsvp);
+    } catch (error) {
+      if (requestId !== latestRsvpRequestId.current) {
+        return;
+      }
+
+      console.error("Failed to load existing RSVP:", error);
+      resetFormToDefaults();
+      setHasPreviouslySubmitted(false);
+      setSubmitError("We couldn't load your previous RSVP right now, but you can still submit the form.");
+    } finally {
+      if (requestId === latestRsvpRequestId.current) {
+        setIsLoadingExistingRsvp(false);
+      }
+    }
+  }
 
   useEffect(() => {
+    clearCookieValue(legacySubmissionsCookieName);
+
     const unlockedInviteHash = getCookieValue(unlockedInviteCookieName);
     if (!unlockedInviteHash) {
       return;
@@ -107,8 +138,7 @@ export function RSVPGate() {
     }
 
     setInvitee(unlockedInvitee);
-    const submissionMap = getSubmissionMap();
-    setHasPreviouslySubmitted(Boolean(submissionMap[unlockedInvitee.codeHash]));
+    void loadLatestRsvp(unlockedInvitee);
   }, [inviteesByCode]);
 
   async function handleGateSubmit(event: FormEvent<HTMLFormElement>) {
@@ -130,8 +160,9 @@ export function RSVPGate() {
 
     setInvitee(inviteeMatch);
     setCookieValue(unlockedInviteCookieName, inviteeMatch.codeHash);
-    const submissionMap = getSubmissionMap();
-    setHasPreviouslySubmitted(Boolean(submissionMap[inviteeMatch.codeHash]));
+    setSubmitMessage("");
+    setSubmitError("");
+    void loadLatestRsvp(inviteeMatch);
   }
 
   async function handleRsvpSubmit(event: FormEvent<HTMLFormElement>) {
@@ -144,46 +175,22 @@ export function RSVPGate() {
       return;
     }
 
-    if (!weddingRsvpEndpoint) {
-      setSubmitError(
-        "RSVP submission is not configured yet. Please contact the couple directly.",
-      );
-      return;
-    }
-
     setIsSubmitting(true);
 
     try {
-      const response = await fetch(weddingRsvpEndpoint, {
-        method: "POST",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          inviteeName: invitee.name,
-          inviteeType: invitee.type,
-          inviteCodeHash: invitee.codeHash,
-          attendanceStatus,
-          dietaryRequirements,
-          accommodation: invitee.type === "guest" ? accommodation : null,
-          roomShare: invitee.type === "guest" ? roomShare : null,
-          email,
-          transportation,
-          submittedAt: new Date().toISOString(),
-        }),
+      await submitRsvp(invitee, {
+        attendanceStatus,
+        dietaryRequirements,
+        accommodation: invitee.type === "guest" ? accommodation : null,
+        roomShare: invitee.type === "guest" ? roomShare : null,
+        email,
+        transportation: transportation || null,
       });
 
-      if (!response.ok) {
-        throw new Error(`RSVP submission failed with status ${response.status}`);
-      }
-
-      const submissionMap = getSubmissionMap();
-      submissionMap[invitee.codeHash] = new Date().toISOString();
-      setCookieValue(submissionsCookieName, JSON.stringify(submissionMap));
       setHasPreviouslySubmitted(true);
       setSubmitMessage("Thanks! Your RSVP has been submitted.");
-    } catch {
+    } catch (error) {
+      console.error("RSVP submission error:", error);
       setSubmitError("We couldn't submit your RSVP right now. Please try again shortly.");
     } finally {
       setIsSubmitting(false);
@@ -197,6 +204,9 @@ export function RSVPGate() {
     setSubmitMessage("");
     setSubmitError("");
     setHasPreviouslySubmitted(false);
+    latestRsvpRequestId.current += 1;
+    setIsLoadingExistingRsvp(false);
+    resetFormToDefaults();
     clearCookieValue(unlockedInviteCookieName);
   }
 
@@ -313,7 +323,11 @@ export function RSVPGate() {
                 update your answers.
               </p>
             ) : null}
-
+            {isLoadingExistingRsvp ? (
+              <p className="mt-3 text-sm text-muted-foreground">
+                Loading your latest RSVP details...
+              </p>
+            ) : null}
             <form className="mt-5 space-y-4" onSubmit={handleRsvpSubmit}>
               <label className="flex flex-col gap-2 text-sm font-medium">
                 Attendance status
