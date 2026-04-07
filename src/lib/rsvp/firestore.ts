@@ -1,6 +1,18 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import { getFirestore, collection, addDoc, serverTimestamp, query, where, orderBy, limit, getDocs } from "firebase/firestore";
-import { InviteeRecord } from "@/lib/rsvp/invitees";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  serverTimestamp,
+  query,
+  where,
+  orderBy,
+  limit,
+  getDocs,
+  doc,
+  getDoc,
+} from "firebase/firestore";
+import type { InviteeRecord } from "@/lib/rsvp/invitees";
 
 export interface RsvpData {
   attendanceStatus: "yes" | "no" | "maybe";
@@ -24,6 +36,55 @@ const firebaseConfig = {
 const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
+function assertFirebaseConfigured() {
+  if (!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
+    throw new Error("Firebase Project ID is not configured.");
+  }
+}
+
+export async function getInviteeByCodeHash(codeHash: string): Promise<InviteeRecord | null> {
+  assertFirebaseConfigured();
+
+  const inviteesRef = collection(db, "invitees");
+
+  // Preferred shape: invitees/{codeHash}
+  const byIdSnapshot = await getDoc(doc(inviteesRef, codeHash));
+  if (byIdSnapshot.exists()) {
+    const data = byIdSnapshot.data();
+
+    if (data.active === false) {
+      return null;
+    }
+
+    return {
+      codeHash,
+      name: data.name,
+      type: data.type,
+      active: data.active,
+    };
+  }
+
+  // Backward-compatible fallback if docs are keyed by random IDs.
+  const byFieldSnapshot = await getDocs(query(inviteesRef, where("codeHash", "==", codeHash), limit(1)));
+
+  if (byFieldSnapshot.empty) {
+    return null;
+  }
+
+  const data = byFieldSnapshot.docs[0]?.data();
+
+  if (!data || data.active === false) {
+    return null;
+  }
+
+  return {
+    codeHash: data.codeHash,
+    name: data.name,
+    type: data.type,
+    active: data.active,
+  };
+}
+
 /**
  * Submits an RSVP to the Firestore 'rsvps' collection.
  *
@@ -32,9 +93,7 @@ const db = getFirestore(app);
  * @throws Error if the submission fails.
  */
 export async function submitRsvp(invitee: InviteeRecord, data: RsvpData): Promise<void> {
-  if (!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
-    throw new Error("Firebase Project ID is not configured.");
-  }
+  assertFirebaseConfigured();
 
   try {
     await addDoc(collection(db, "rsvps"), {
@@ -62,9 +121,7 @@ export async function submitRsvp(invitee: InviteeRecord, data: RsvpData): Promis
  * @returns The most recent RSVP data or null if no submission is found.
  */
 export async function getLatestRsvp(inviteeCodeHash: string): Promise<RsvpData | null> {
-  if (!process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID) {
-    throw new Error("Firebase Project ID is not configured.");
-  }
+  assertFirebaseConfigured();
 
   try {
     const rsvpsRef = collection(db, "rsvps");
@@ -72,7 +129,7 @@ export async function getLatestRsvp(inviteeCodeHash: string): Promise<RsvpData |
       rsvpsRef,
       where("inviteCodeHash", "==", inviteeCodeHash),
       orderBy("submittedAt", "desc"),
-      limit(1)
+      limit(1),
     );
 
     const querySnapshot = await getDocs(q);
@@ -81,8 +138,8 @@ export async function getLatestRsvp(inviteeCodeHash: string): Promise<RsvpData |
       return null;
     }
 
-    const doc = querySnapshot.docs[0];
-    const data = doc.data();
+    const rsvpDoc = querySnapshot.docs[0];
+    const data = rsvpDoc.data();
 
     return {
       attendanceStatus: data.attendanceStatus,

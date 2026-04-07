@@ -31,6 +31,7 @@ bun-debug.log*
 .env.production
 .env*.local
 .envrc
+scripts/invitees.seed.json
 .venv
 env/
 venv/
