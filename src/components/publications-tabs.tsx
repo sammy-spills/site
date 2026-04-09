@@ -17,6 +17,7 @@ import type { Publication } from "@/lib/schemas/content";
 const TAB_ORDER = [
   "Journal Article",
   "Conference Paper",
+  "Workshop",
   "Book Chapter",
   "Edited Book",
   "Report",
@@ -28,7 +29,7 @@ function PublicationCard({ pub }: { pub: Publication }) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base">{pub.title}</CardTitle>
+        <CardTitle>{pub.title}</CardTitle>
         <CardDescription>{pub.authors}</CardDescription>
         {pub.editors ? (
           <CardDescription>Edited by {pub.editors}</CardDescription>

@@ -1,5 +1,11 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { site } from "@/lib/data";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,18 +24,19 @@ function formatTag(tag: string) {
 }
 
 const aoes = [
-	{
-		"title": "AI & ML Research",
-		"description": "Developing operational and mission-tested AI & ML systems at scale for the UK public sector. Focus on bringing novel and cutting-edge research into the hands of end-users with end-to-end research engineering."
-	},
-	{
-		"title": "Cyber Security",
-		"description": "Experience in protecting the UK's cyber space, applying advanced AI techniques to understand the threat landscape, as well as research into how novel AI research can be applied at a national level to secure the UK from advanced threats."
-	},
+  {
+    title: "AI & ML Research",
+    description:
+      "Developing operational and mission-tested AI & ML systems at scale for the UK public sector. Focus on bringing novel and cutting-edge research into the hands of end-users with end-to-end research engineering.",
+  },
+  {
+    title: "Cyber Security",
+    description:
+      "Experience in protecting the UK's cyber space, applying advanced AI techniques to understand the threat landscape, as well as research into how novel AI research can be applied at a national level to secure the UK from advanced threats.",
+  },
 ];
 
 export default function Home() {
-  
   const posts = getAllContent<BlogFrontmatter>("blog");
   const featuredPost = posts[0];
 
@@ -60,33 +67,35 @@ export default function Home() {
               target="_blank"
               rel="noreferrer"
               className="underline underline-offset-4"
-              >{site.profile.institute}</a>
+            >
+              {site.profile.institute}
+            </a>
           </p>
         </div>
       </section>
 
       <section>
-      <h2 className="mb-4 font-semibold text-xl">Areas of Expertise</h2>
-      <div className="grid gap-4 md:grid-cols-2">
-        {aoes.map((section) => (
-          <Card key={section.title}>
-            <CardHeader>
-              <CardTitle className="text-base">{section.title}</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <p className="text-muted-foreground text-sm/relaxed">
-                {section.description}
-              </p>
-            </CardContent>
-          </Card>
-        ))}
-	</div>
+        <h2 className="mb-4 text-2xl sm:text-3xl">Areas of Expertise</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          {aoes.map((section) => (
+            <Card key={section.title}>
+              <CardHeader>
+                <CardTitle>{section.title}</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-muted-foreground text-sm/relaxed">
+                  {section.description}
+                </p>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
       </section>
 
       {/* Featured Blog Post */}
       {featuredPost && (
         <section>
-          <h2 className="mb-4 font-semibold text-xl">Latest Post</h2>
+          <h2 className="mb-4 text-2xl sm:text-3xl">Latest Post</h2>
           <Link href={`/blog/${featuredPost.slug}`}>
             <Card className="gap-0 overflow-hidden p-0 transition-colors hover:bg-muted/50 md:flex-row">
               {featuredPost.metadata.image && (

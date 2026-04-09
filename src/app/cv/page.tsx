@@ -1,8 +1,4 @@
-import {
-  BriefcaseIcon,
-  Code2Icon,
-  GraduationCapIcon,
-} from "lucide-react";
+import { BriefcaseIcon, Code2Icon, GraduationCapIcon } from "lucide-react";
 import type { Metadata } from "next";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -35,11 +31,13 @@ export default function CVPage() {
         <section className="space-y-4">
           <div className="mb-4 flex items-center gap-2">
             <BriefcaseIcon className="size-5 text-muted-foreground" />
-            <h2 className="font-semibold text-xl">Experience</h2>
+            <h2 className="font-semibold text-2xl">Experience</h2>
           </div>
           <div className="space-y-4">
             {experiences.map((experience) => (
-              <Card key={`${experience.company}-${experience.title}-${experience.time}`}>
+              <Card
+                key={`${experience.company}-${experience.title}-${experience.time}`}
+              >
                 <CardHeader className="gap-2 sm:grid-cols-[1fr_auto] sm:items-start">
                   <div className="space-y-1">
                     <CardTitle>{experience.title}</CardTitle>
@@ -69,7 +67,7 @@ export default function CVPage() {
         <section className="space-y-4">
           <div className="mb-4 flex items-center gap-2">
             <GraduationCapIcon className="size-5 text-muted-foreground" />
-            <h2 className="font-semibold text-xl">Education</h2>
+            <h2 className="font-semibold text-2xl">Education</h2>
           </div>
           <div className="space-y-4">
             {education.map((item) => (
@@ -103,13 +101,13 @@ export default function CVPage() {
         <section className="space-y-4">
           <div className="mb-4 flex items-center gap-2">
             <Code2Icon className="size-5 text-muted-foreground" />
-            <h2 className="font-semibold text-xl">Skills</h2>
+            <h2 className="font-semibold text-2xl">Skills</h2>
           </div>
           <div className="grid gap-4 md:grid-cols-3">
             {skills.map((skill) => (
               <Card key={skill.title} size="sm">
                 <CardHeader>
-                  <CardTitle>{skill.title}</CardTitle>
+                  <CardTitle className="text-bold">{skill.title}</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <p className="text-muted-foreground text-sm/relaxed">

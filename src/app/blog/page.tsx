@@ -1,7 +1,16 @@
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/card";
 import { getAllContent } from "@/lib/content";
-import { blogFrontmatterSchema, type BlogFrontmatter } from "@/lib/schemas/content";
+import {
+  blogFrontmatterSchema,
+  type BlogFrontmatter,
+} from "@/lib/schemas/content";
 import { formatTag } from "@/lib/utils";
 import { format } from "date-fns";
 import Image from "next/image";
@@ -10,7 +19,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = {
   title: "Blog - Sam Spillard",
-  description: "Thoughts and things I care about",
+  description: "Thoughts and things I care about...",
 };
 
 function formatDateUK(dateStr: string) {
@@ -31,8 +40,7 @@ export default function BlogIndexPage() {
       <section className="space-y-3">
         <h1 className="font-bold text-3xl">Blog</h1>
         <p className="max-w-2xl text-muted-foreground text-sm/relaxed">
-          Notes, updates, and longer-form writing published from MDX files in
-          the repo.
+          {metadata.description}
         </p>
       </section>
 
@@ -67,11 +75,11 @@ export default function BlogIndexPage() {
                       {post.metadata.title}
                     </CardTitle>
                     <CardDescription>
-                        {formatDateUK(post.metadata.date)}
+                      {formatDateUK(post.metadata.date)}
                     </CardDescription>
                   </CardHeader>
                   <CardContent className="space-y-3">
-                      <p className="text-muted-foreground text-sm/relaxed">
+                    <p className="text-muted-foreground text-sm/relaxed">
                       {post.metadata.excerpt}
                     </p>
                     <div className="flex flex-wrap items-center gap-2">

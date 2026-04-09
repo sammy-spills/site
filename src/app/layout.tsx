@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Literata } from "next/font/google";
+import { Cormorant_Garamond, Literata } from "next/font/google";
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { siteConfig } from "@/lib/site-config";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -10,6 +10,14 @@ const literata = Literata({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-literata",
+});
+
+const cormorantGaramond = Cormorant_Garamond({
+  subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-cormorant-garamond",
 });
 
 export const metadata: Metadata = {
@@ -45,7 +53,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className={literata.variable}>
+    <html
+      lang="en"
+      suppressHydrationWarning
+      className={`${literata.variable} ${cormorantGaramond.variable}`}
+    >
       <body className={`${literata.className} antialiased`}>
         <ThemeProvider>
           <SidebarLayout>{children}</SidebarLayout>

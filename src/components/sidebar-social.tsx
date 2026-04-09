@@ -2,14 +2,14 @@
 
 import type { LucideIcon } from "lucide-react";
 import {
-  GithubIcon,
-  GitlabIcon,
-  GraduationCapIcon,
-  LinkedinIcon,
-  MailIcon,
-  MoonIcon,
-  SunIcon,
-  TwitterIcon,
+  Github,
+  Gitlab,
+  GraduationCap,
+  Linkedin,
+  Mail,
+  Moon,
+  Sun,
+  Twitter,
 } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
@@ -21,12 +21,12 @@ import {
 import type { Social } from "@/lib/schemas/site";
 
 const iconMap: Record<string, LucideIcon> = {
-  email: MailIcon,
-  linkedin: LinkedinIcon,
-  github: GithubIcon,
-  gitlab: GitlabIcon,
-  scholar: GraduationCapIcon,
-  x: TwitterIcon,
+  email: Mail,
+  linkedin: Linkedin,
+  github: Github,
+  gitlab: Gitlab,
+  scholar: GraduationCap,
+  x: Twitter,
 };
 
 const labelMap: Record<string, string> = {
@@ -97,8 +97,8 @@ export function SidebarSocial({ social }: SidebarSocialProps) {
             />
           }
         >
-          <SunIcon className="size-4 scale-100 dark:scale-0" />
-          <MoonIcon className="absolute size-4 scale-0 dark:scale-100" />
+          <Sun className="size-4 scale-100 dark:scale-0" />
+          <Moon className="absolute size-4 scale-0 dark:scale-100" />
           <span className="sr-only">Toggle theme</span>
         </TooltipTrigger>
         <TooltipContent side="top">Toggle theme</TooltipContent>
