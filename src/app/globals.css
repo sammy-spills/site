@@ -41,7 +41,7 @@
   --sidebar-ring: oklch(0.7414 0.0738 84.5946);
   --font-sans: var(--font-literata), serif;
   --font-serif: var(--font-cormorant-garamond), serif;
-  --font-display: var(--font-cormorant-garamond), serif;
+  --font-display: Georgia, "Times New Roman", Times, serif;
   --font-mono: JetBrains Mono, monospace;
   --radius: 0.75rem;
   --shadow-2xs: 0px 8px 15px 0px hsl(0 0% 0% / 0.03);
@@ -116,8 +116,8 @@
   --shadow-2xl: 0px 10px 25px 0px hsl(0 0% 0% / 1);
   --radius: 0.75rem;
   --font-sans: var(--font-literata), serif;
-  --font-serif: var(--font-cormorant-garamond), serif;
-  --font-display: var(--font-cormorant-garamond), serif;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+  --font-display: Georgia, "Times New Roman", Times, serif;
   --font-mono: JetBrains Mono, monospace;
   --shadow-color: #000000;
   --shadow-opacity: 0.4;
@@ -165,8 +165,8 @@
 
   --font-sans: var(--font-literata), serif;
   --font-mono: JetBrains Mono, monospace;
-  --font-serif: var(--font-cormorant-garamond), serif;
-  --font-display: var(--font-cormorant-garamond), serif;
+  --font-serif: Georgia, "Times New Roman", Times, serif;
+  --font-display: Georgia, "Times New Roman", Times, serif;
 
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);

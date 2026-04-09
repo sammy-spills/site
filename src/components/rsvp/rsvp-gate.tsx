@@ -211,7 +211,7 @@ export function RSVPGate() {
   }
 
   return (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 py-12">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 pb-12">
       <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
         <h1 className="text-3xl font-semibold tracking-tight">Laura & Sam&apos;s Wedding Celebration</h1>
         <p className="mt-3 text-muted-foreground">

@@ -75,7 +75,7 @@ export default function Home() {
       </section>
 
       <section>
-        <h2 className="mb-4 text-2xl sm:text-3xl">Areas of Expertise</h2>
+        <h2 className="mb-4 text-xl sm:text-2xl">Areas of Expertise</h2>
         <div className="grid gap-4 md:grid-cols-2">
           {aoes.map((section) => (
             <Card key={section.title}>
@@ -95,7 +95,7 @@ export default function Home() {
       {/* Featured Blog Post */}
       {featuredPost && (
         <section>
-          <h2 className="mb-4 text-2xl sm:text-3xl">Latest Post</h2>
+          <h2 className="mb-4 text-xl sm:text-2xl">Latest Post</h2>
           <Link href={`/blog/${featuredPost.slug}`}>
             <Card className="gap-0 overflow-hidden p-0 transition-colors hover:bg-muted/50 md:flex-row">
               {featuredPost.metadata.image && (
