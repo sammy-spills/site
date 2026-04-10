@@ -11,8 +11,6 @@ import {
 } from "@/lib/rsvp/invitees";
 import {
   Card,
-  CardHeader,
-  CardTitle,
   CardDescription,
 } from "@/components/ui/card";
 
@@ -77,6 +75,7 @@ export function RSVPGate() {
   const [hasPreviouslySubmitted, setHasPreviouslySubmitted] = useState(false);
   const [isLoadingExistingRsvp, setIsLoadingExistingRsvp] = useState(false);
   const latestRsvpRequestId = useRef(0);
+  const desktopHeroCardRef = useRef<HTMLDivElement | null>(null);
 
   function resetFormToDefaults() {
     setAttendanceStatus("yes");
@@ -148,6 +147,39 @@ export function RSVPGate() {
     void loadLatestRsvp(unlockedInvitee);
   }, [inviteesByCode]);
 
+  useEffect(() => {
+    let frameId = 0;
+
+    function syncHeroScroll() {
+      const heroCard = desktopHeroCardRef.current;
+      if (!heroCard || !window.matchMedia("(min-width: 768px)").matches) {
+        return;
+      }
+
+      const maxInternalScroll = heroCard.scrollHeight - heroCard.clientHeight;
+      if (maxInternalScroll <= 0) {
+        return;
+      }
+
+      heroCard.scrollTop = Math.min(maxInternalScroll, window.scrollY * 0.35);
+    }
+
+    function handleScroll() {
+      cancelAnimationFrame(frameId);
+      frameId = window.requestAnimationFrame(syncHeroScroll);
+    }
+
+    syncHeroScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    window.addEventListener("resize", handleScroll);
+
+    return () => {
+      cancelAnimationFrame(frameId);
+      window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", handleScroll);
+    };
+  }, []);
+
   async function handleGateSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setGateError("");
@@ -218,9 +250,9 @@ export function RSVPGate() {
   }
 
   return (
-    <div className="relative w-full pb-12">
-      <div className="relative z-0">
-        <div className="relative left-1/2 w-screen -translate-x-1/2">
+    <div className="w-full pb-12">
+      <div className="relative left-1/2 w-screen -translate-x-1/2 md:hidden">
+        <div className="relative">
           <Image
             alt="Laura, Sam and Maple"
             className="block h-auto w-full"
@@ -230,29 +262,51 @@ export function RSVPGate() {
             src="/picnic.webp"
             width={2736}
           />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-4 pb-0">
+            <div className="mx-auto w-full max-w-3xl">
+              <h1 className="text-center font-semibold text-3xl tracking-tight text-[oklch(0.9_0.012_145)]">
+                Laura & Sam&apos;s Wedding Celebration
+              </h1>
+            </div>
+          </div>
         </div>
       </div>
 
-      <div className="relative z-10 mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 pt-8 xl:-mt-[clamp(1620px,calc(88vw+300px),2080px)] xl:pt-80px">
-        <Card className="transition-colors">
-          <CardHeader>
-            <CardTitle className="text-3xl font-semibold tracking-tight">
+      <div className="mx-auto hidden w-full max-w-5xl px-4 pt-6 md:block">
+        <Card
+          className="relative mx-auto h-[70vh] max-h-[900px] min-h-[520px] w-full max-w-4xl overflow-x-hidden overflow-y-auto py-0"
+          ref={desktopHeroCardRef}
+        >
+          <Image
+            alt="Laura, Sam and Maple"
+            className="block h-auto w-full"
+            height={3448}
+            priority
+            sizes="(min-width: 1024px) 80rem, 100vw"
+            src="/picnic.webp"
+            width={2736}
+          />
+          <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-8 pb-8">
+            <h1 className="text-center font-semibold text-5xl tracking-tight text-[oklch(0.9_0.012_145)]">
               Laura & Sam&apos;s Wedding Celebration
-            </CardTitle>
-            <CardDescription className="text-base leading-relaxed">
-              Please enter your unique invite code to view your event details and RSVP.
-              <br />
-              If you have any questions, email us at{" "}
-              <a
-                className={venueMapLinkClasses}
-                href="mailto:rsvp@spillard.io?subject=Question%20About%20RSVP"
-              >
-                rsvp@spillard.io
-              </a>
-              .
-            </CardDescription>
-          </CardHeader>
+            </h1>
+          </div>
         </Card>
+      </div>
+
+      <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 pt-8 md:pt-10">
+        <CardDescription className="text-center text-lg leading-relaxed">
+          Please enter your unique invite code to view your event details and RSVP.
+          <br />
+          If you have any questions, email us at{" "}
+          <a
+            className={venueMapLinkClasses}
+            href="mailto:rsvp@spillard.io?subject=Question%20About%20RSVP"
+          >
+            rsvp@spillard.io
+          </a>
+          .
+        </CardDescription>
 
         {!invitee ? (
           <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
