@@ -27,18 +27,22 @@ const venueMapUrl = "https://maps.app.goo.gl/qyo7KX7283WsTqxL7";
 
 const FAQ_ITEMS = [
   {
+    key: "dress-code",
     question: "What should I wear?",
     answer: "We have put the dress code as \"garden party\" as we hope to be outside in the garden. No colour schemes, chilled and informal vibes.",
   },
   {
+    key: "day",
     question: "What to expect from the day?",
     answer: "Drinks, live music and food!",
   },
-    {
+  {
+    key: "parking",
     question: "Where to park?",
     answer: "There is a field over the road for those driving to the venue.",
   },
   {
+    key: "plus-one",
     question: "Can I bring a plus one?",
     answer: "Your invitation will have all named invitees on it. If you have any questions about your specific invitation, please email us.",
   },
@@ -46,10 +50,12 @@ const FAQ_ITEMS = [
 
 const FAQ_GUESTS = [
   {
+    key: "time",
     question: "What time shall I arrive?",
     answer: "The celebrations start at 14:30. If you are glamping, please feel free to arrive from 14:00 to get settled in.",
   },
   {
+    key: "glamping",
     question: "What's the deal with the glamping?",
     answer: "We have arranged for a number of festival bell tents to be set up in the grounds. Please let us know (using the form below) if you would like one and if you are happy to share with people you know (they can easily accommodate 4 people)! Both double and single beds can be arranged. For those staying over, breakfast will be provided.",
   },
@@ -441,24 +447,26 @@ export function RSVPGate() {
                   <dd>Garden Party Vibes</dd>
                 </dl>
               )}
+            </section>
 
-              {invitee && (
-                <Accordion className="mt-4">
-                  <AccordionItem value="faqs">
-                    <AccordionTrigger><h2 className="text-xl font-medium">FAQs</h2></AccordionTrigger>
-                    <AccordionContent>
-                      <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
-                        {(isGuest(invitee) ? [...FAQ_GUESTS, ...FAQ_ITEMS] : FAQ_ITEMS).map((item) => (
-                          <React.Fragment key={item.question}>
-                            <dt className="font-medium text-muted-foreground">{item.question}</dt>
-                            <dd>{item.answer}</dd>
-                          </React.Fragment>
-                        ))}
-                      </dl>
-                    </AccordionContent>
-                  </AccordionItem>
-                </Accordion>
-              )}
+            <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+              <Accordion>
+                <AccordionItem key="faq">
+                  <AccordionTrigger><h2 className="text-xl font-medium">FAQ</h2></AccordionTrigger>
+                  <AccordionContent>
+                    <Accordion>
+                      {(isGuest(invitee) ? [...FAQ_GUESTS, ...FAQ_ITEMS]: FAQ_ITEMS).map((item) => (
+                        <AccordionItem key={item.key}>
+                          <AccordionTrigger><h2 className="text-lg font-medium">{item.question}</h2></AccordionTrigger>
+                          <AccordionContent>
+                            {item.answer}
+                          </AccordionContent>
+                        </AccordionItem>
+                      ))}
+                    </Accordion>
+                  </AccordionContent>
+                </AccordionItem>
+              </Accordion>
             </section>
 
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
