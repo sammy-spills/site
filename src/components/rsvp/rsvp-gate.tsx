@@ -34,11 +34,7 @@ const FAQ_ITEMS = [
     question: "What to expect from the day?",
     answer: "Drinks, live music and food!",
   },
-  {
-    question: "What's the deal with the glamping?",
-    answer: "We have arranged for a number of festival bell tents to be set up in the grounds. Please let us know (using the form below) if you would like one and if you are happy to share with people you know (they can easily accommodate 4 people)! Both double and single beds can be arranged. For those staying over, breakfast will be provided.",
-  },
-  {
+    {
     question: "Where to park?",
     answer: "There is a field over the road for those driving to the venue.",
   },
@@ -52,6 +48,10 @@ const FAQ_GUESTS = [
   {
     question: "What time shall I arrive?",
     answer: "The celebrations start at 14:30. If you are glamping, please feel free to arrive from 14:00 to get settled in.",
+  },
+  {
+    question: "What's the deal with the glamping?",
+    answer: "We have arranged for a number of festival bell tents to be set up in the grounds. Please let us know (using the form below) if you would like one and if you are happy to share with people you know (they can easily accommodate 4 people)! Both double and single beds can be arranged. For those staying over, breakfast will be provided.",
   },
 ];
 
