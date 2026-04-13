@@ -308,7 +308,7 @@ export function RSVPGate() {
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-4 pb-0">
             <div className="mx-auto w-full max-w-3xl">
-              <h1 className="text-center font-semibold text-3xl tracking-tight text-[oklch(0.9_0.012_145)]">
+              <h1 className="text-center font-semibold text-3xl tracking-tight text-white">
                 Laura & Sam&apos;s Wedding Celebration
               </h1>
             </div>
@@ -331,7 +331,7 @@ export function RSVPGate() {
             width={2736}
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-8 pb-8">
-            <h1 className="text-center font-semibold text-5xl tracking-tight text-[oklch(0.9_0.012_145)]">
+            <h1 className="text-center font-semibold text-5xl tracking-tight text-white">
               Laura & Sam&apos;s Wedding Celebration
             </h1>
           </div>
@@ -379,7 +379,7 @@ export function RSVPGate() {
         ) : (
           <>
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-              <h2 className="text-xl font-medium">Welcome, {invitee.name}</h2>
+              <h2 className="text-xl font-semibold">Welcome, {invitee.name}</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 You&apos;re viewing the {invitee.type === "family" ? "family" : "guest"} event
                 plan.
@@ -452,7 +452,7 @@ export function RSVPGate() {
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <Accordion>
                 <AccordionItem key="faq">
-                  <AccordionTrigger><h2 className="text-xl font-medium">FAQ</h2></AccordionTrigger>
+                  <AccordionTrigger><h2 className="text-xl font-semibold">FAQ</h2></AccordionTrigger>
                   <AccordionContent>
                     <Accordion>
                       {(isGuest(invitee) ? [...FAQ_GUESTS, ...FAQ_ITEMS]: FAQ_ITEMS).map((item) => (
@@ -470,7 +470,7 @@ export function RSVPGate() {
             </section>
 
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-              <h2 className="text-xl font-medium">RSVP</h2>
+              <h2 className="text-xl font-semibold">RSVP</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Please reply by March 1, 2027. Let us know if plans change after submitting.
               </p>
@@ -487,7 +487,7 @@ export function RSVPGate() {
               ) : null}
               <form className="mt-5 space-y-4" onSubmit={handleRsvpSubmit}>
                 <label className="flex flex-col gap-2 text-sm font-medium">
-                  Attendance status
+                  <p className="font-medium text-muted-foreground">Attendance status</p>
                   <select
                     className="h-10 rounded-md border border-input bg-background px-3 text-sm"
                     onChange={(event) =>
@@ -501,7 +501,7 @@ export function RSVPGate() {
                 </label>
 
                 <label className="flex flex-col gap-2 text-sm font-medium">
-                  Dietary requirements
+                  <p className="font-medium text-muted-foreground">Dietary requirements</p>
                   <textarea
                     className="min-h-24 rounded-md border border-input bg-background px-3 py-2 text-sm"
                     onChange={(event) => setDietaryRequirements(event.target.value)}
@@ -513,7 +513,7 @@ export function RSVPGate() {
                 {invitee.type === "guest" ? (
                   <>
                     <label className="flex flex-col gap-2 text-sm font-medium">
-                      Happy to stay in provided accommodation? (See details above)
+                      <p className="font-medium text-muted-foreground">Happy to stay in provided accommodation? (See details above)</p>
                       <select
                         className="h-10 rounded-md border border-input bg-background px-3 text-sm"
                         onChange={(event) => setAccommodation(event.target.value as Accommodation)}
@@ -525,7 +525,7 @@ export function RSVPGate() {
                     </label>
 
                     <label className="flex flex-col gap-2 text-sm font-medium">
-                      Willing to share a pod in provided accommodation?
+                      <p className="font-medium text-muted-foreground">Willing to share a pod in provided accommodation?</p>
                       <select
                         className="h-10 rounded-md border border-input bg-background px-3 text-sm"
                         onChange={(event) => setRoomShare(event.target.value as RoomShare)}
@@ -538,7 +538,7 @@ export function RSVPGate() {
                     </label>
 
                     <label className="flex flex-col gap-2 text-sm font-medium">
-                      How will you be arriving?
+                      <p className="font-medium text-muted-foreground">How will you be arriving?</p>
                       <textarea
                         className="min-h-24 rounded-md border border-input bg-background px-3 py-2 text-sm"
                         onChange={(event) => setTransportation(event.target.value)}
@@ -551,7 +551,7 @@ export function RSVPGate() {
                 ) : null}
 
                 <label className="flex flex-col gap-2 text-sm font-medium">
-                  Primary email address
+                  <p className="font-medium text-muted-foreground">Primary email address</p>
                   <input
                     autoComplete="email"
                     className="h-10 rounded-md border border-input bg-background px-3 text-sm"
