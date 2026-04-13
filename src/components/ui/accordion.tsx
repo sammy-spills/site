@@ -4,7 +4,7 @@ import { Accordion as AccordionPrimitive } from "@base-ui/react/accordion";
 import { ChevronDownIcon, ChevronUpIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
+function Accordion({ className, ...props }: React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Root>) {
   return (
     <AccordionPrimitive.Root
       className={cn("flex w-full flex-col", className)}
@@ -14,7 +14,7 @@ function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   );
 }
 
-function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
+function AccordionItem({ className, ...props }: React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Item>) {
   return (
     <AccordionPrimitive.Item
       className={cn("not-last:border-b", className)}
@@ -28,7 +28,7 @@ function AccordionTrigger({
   className,
   children,
   ...props
-}: AccordionPrimitive.Trigger.Props) {
+}: React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Trigger>) {
   return (
     <AccordionPrimitive.Header className="flex">
       <AccordionPrimitive.Trigger
@@ -57,7 +57,7 @@ function AccordionContent({
   className,
   children,
   ...props
-}: AccordionPrimitive.Panel.Props) {
+}: React.ComponentPropsWithoutRef<typeof AccordionPrimitive.Panel>) {
   return (
     <AccordionPrimitive.Panel
       className="overflow-hidden text-sm data-closed:animate-accordion-up data-open:animate-accordion-down"

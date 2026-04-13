@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { FormEvent, useEffect, useMemo, useRef, useState } from "react";
+import React, { FormEvent, useEffect, useMemo, useRef, useState } from "react";
 import { ExternalLink } from "lucide-react";
 import { getLatestRsvp, type RsvpData, submitRsvp } from "@/lib/rsvp/firestore";
 import {
@@ -13,11 +13,49 @@ import {
   Card,
   CardDescription,
 } from "@/components/ui/card";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 type AttendanceStatus = "yes" | "no" | "maybe";
 type RoomShare = "yes" | "no" | "no-preference";
 type Accommodation = "yes" | "no";
 const venueMapUrl = "https://maps.app.goo.gl/qyo7KX7283WsTqxL7";
+
+const FAQ_ITEMS = [
+  {
+    question: "What should I wear?",
+    answer: "We have put the dress code as \"garden party\" as we hope to be outside in the garden. No colour schemes, chilled and informal vibes.",
+  },
+  {
+    question: "What to expect from the day?",
+    answer: "Drinks, live music and food!",
+  },
+  {
+    question: "What's the deal with the glamping?",
+    answer: "We have arranged for a number of festival bell tents to be set up in the grounds. Please let us know (using the form below) if you would like one and if you are happy to share with people you know (they can easily accommodate 4 people)! Both double and single beds can be arranged. For those staying over, breakfast will be provided.",
+  },
+  {
+    question: "Where to park?",
+    answer: "There is a field over the road for those driving to the venue.",
+  },
+  {
+    question: "Can I bring a plus one?",
+    answer: "Your invitation will have all named invitees on it. If you have any questions about your specific invitation, please email us.",
+  },
+];
+
+const FAQ_GUESTS = [
+  {
+    question: "What time shall I arrive?",
+    answer: "The celebrations start at 14:30. If you are glamping, please feel free to arrive from 14:00 to get settled in.",
+  },
+];
+
+const isGuest = (invitee: InviteeRecord | null): boolean => invitee?.type === "guest";
 
 const unlockedInviteCookieName = "wedding_rsvp_unlocked_invite_hash";
 const legacySubmissionsCookieName = "wedding_rsvp_submissions";
@@ -402,6 +440,24 @@ export function RSVPGate() {
                   <dt className="font-medium text-muted-foreground">Dress code</dt>
                   <dd>Garden Party Vibes</dd>
                 </dl>
+              )}
+
+              {invitee && (
+                <Accordion className="mt-4">
+                  <AccordionItem value="faqs">
+                    <AccordionTrigger><h2 className="text-xl font-medium">FAQs</h2></AccordionTrigger>
+                    <AccordionContent>
+                      <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
+                        {(isGuest(invitee) ? [...FAQ_GUESTS, ...FAQ_ITEMS] : FAQ_ITEMS).map((item) => (
+                          <React.Fragment key={item.question}>
+                            <dt className="font-medium text-muted-foreground">{item.question}</dt>
+                            <dd>{item.answer}</dd>
+                          </React.Fragment>
+                        ))}
+                      </dl>
+                    </AccordionContent>
+                  </AccordionItem>
+                </Accordion>
               )}
             </section>
 

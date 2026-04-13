@@ -100,6 +100,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
             priority
             sizes="(min-width: 1024px) 896px, 100vw"
             src={metadata.image}
+            loading="eager"
           />
         </div>
       )}

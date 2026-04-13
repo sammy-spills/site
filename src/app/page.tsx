@@ -51,6 +51,7 @@ export default function Home() {
               fill
               sizes="256px"
               src={site.profile.image}
+              loading="eager"
             />
           </div>
         ) : (
@@ -106,6 +107,7 @@ export default function Home() {
                     fill
                     sizes="(max-width: 768px) 100vw, 288px"
                     src={featuredPost.metadata.image}
+                    loading="eager"
                   />
                 </div>
               )}
