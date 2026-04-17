@@ -1,36 +1,45 @@
 {
   "items": [
-	  {
-		  "title": "TimeCluster with PCA is Equivalent to Subspace Identification of Linear Dynamical Systems",
-		  "authors": "Hines, C. L.; Spillard, S.; Martin, D., P.",
-		  "venue": "arXiv",
-		  "date": "2025",
-		  "type": "Preprint",
-		  "link": "https://doi.org/10.48550/arXiv.2509.12895"
-	  },
-	  {
-		  "title": "Brief analysis of DeepSeek R1 and its implications for Generative AI",
-		  "authors": "Mercer, Sarah; Spillard, Samuel; Martin, Daniel P.",
-		  "venue": "arXiv",
-		  "date": "2025",
-		  "type": "Preprint",
-		  "link": "https://doi.org/10.48550/arXiv.2502.02523"
-	  },
-	  {
-		  "title": "Developing Optimal Causal Cyber-defence Agents via Cyber Security Simulation",
-		  "authors": "Andrew, A.; Spillard, S.; Collyer, J.; Dhir, N.",
-		  "venue": "ML4Cyber Workshop at 39th International Conference on Machine Learning (ICML)",
-		  "date": "2022",
-		  "type": "Workshop",
-		  "link": "https://doi.org/10.48550/arXiv.2207.12355"
-	  },
-  {
-    "title": "Machine Learning Entanglement Freedom",
-    "authors": "Spillard, S.; Turner, C., J.; Meichanetzidis, K",
-    "venue": "International Journal of Quantum Information",
-    "date": "2018",
-    "type": "Journal Article",
-    "link": "https://doi.org/10.1142/S0219749918400026"
-  }
-]
+    {
+      "title": "An Overview of Subliminal Learning",
+      "authors": "Martin, D. P.; Spillard, S.",
+      "venue": "ICLR 2026 Blog Post Track",
+      "date": "2026",
+      "type": "Web Article",
+      "link": "https://iclr-blogposts.github.io/2026/blog/2026/an-overview-of-subliminal-learning/",
+      "abstract": "Survey of the current state of subliminal learning research, identifying open problems that must be addressed before these techniques become practical security threats."
+    },
+    {
+      "title": "TimeCluster with PCA is Equivalent to Subspace Identification of Linear Dynamical Systems",
+      "authors": "Hines, C. L.; Spillard, S.; Martin, D., P.",
+      "venue": "arXiv",
+      "date": "2025",
+      "type": "Preprint",
+      "link": "https://doi.org/10.48550/arXiv.2509.12895"
+    },
+    {
+      "title": "Brief analysis of DeepSeek R1 and its implications for Generative AI",
+      "authors": "Mercer, Sarah; Spillard, Samuel; Martin, Daniel P.",
+      "venue": "arXiv",
+      "date": "2025",
+      "type": "Preprint",
+      "link": "https://doi.org/10.48550/arXiv.2502.02523"
+    },
+    {
+      "title": "Developing Optimal Causal Cyber-defence Agents via Cyber Security Simulation",
+      "authors": "Andrew, A.; Spillard, S.; Collyer, J.; Dhir, N.",
+      "venue": "ML4Cyber Workshop at 39th International Conference on Machine Learning (ICML)",
+      "date": "2022",
+      "type": "Workshop",
+      "link": "https://doi.org/10.48550/arXiv.2207.12355"
+    },
+    {
+      "title": "Machine Learning Entanglement Freedom",
+      "authors": "Spillard, S.; Turner, C., J.; Meichanetzidis, K",
+      "venue": "International Journal of Quantum Information",
+      "date": "2018",
+      "type": "Journal Article",
+      "link": "https://doi.org/10.1142/S0219749918400026"
+    }
+  ]
 }
