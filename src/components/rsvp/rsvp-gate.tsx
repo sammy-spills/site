@@ -23,6 +23,9 @@ import {
 type AttendanceStatus = "yes" | "no" | "maybe";
 type RoomShare = "yes" | "no" | "no-preference";
 type Accommodation = "yes" | "no";
+type RSVPGateProps = {
+  initialInviteCode?: string;
+};
 const venueMapUrl = "https://maps.app.goo.gl/qyo7KX7283WsTqxL7";
 
 const FAQ_ITEMS = [
@@ -94,7 +97,7 @@ async function sha256(input: string): Promise<string> {
     .join("");
 }
 
-export function RSVPGate() {
+export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
   const inviteesByCode = useMemo(
     () => new Map(invitees.map((invitee) => [invitee.codeHash, invitee])),
     [],
@@ -174,8 +177,42 @@ export function RSVPGate() {
     }
   }
 
+  async function unlockInviteCode(code: string): Promise<boolean> {
+    setGateError("");
+
+    const normalizedCode = normalizeInviteCode(code);
+    if (!normalizedCode) {
+      setGateError("Please enter the invite code from your invitation.");
+      return false;
+    }
+
+    const codeHash = await sha256(normalizedCode);
+    const inviteeMatch = inviteesByCode.get(codeHash);
+    if (!inviteeMatch) {
+      setInvitee(null);
+      setGateError("Sorry, we couldn't find a matching invitation for that code.");
+      return false;
+    }
+
+    setInvitee(inviteeMatch);
+    setCookieValue(unlockedInviteCookieName, inviteeMatch.codeHash);
+    setSubmitMessage("");
+    setSubmitError("");
+    void loadLatestRsvp(inviteeMatch);
+    return true;
+  }
+
   useEffect(() => {
     clearCookieValue(legacySubmissionsCookieName);
+
+    const searchParamInviteCode =
+      initialInviteCode || new URLSearchParams(window.location.search).get("code") || "";
+
+    if (searchParamInviteCode.trim()) {
+      setInviteCode(searchParamInviteCode);
+      void unlockInviteCode(searchParamInviteCode);
+      return;
+    }
 
     const unlockedInviteHash = getCookieValue(unlockedInviteCookieName);
     if (!unlockedInviteHash) {
@@ -189,7 +226,7 @@ export function RSVPGate() {
 
     setInvitee(unlockedInvitee);
     void loadLatestRsvp(unlockedInvitee);
-  }, [inviteesByCode]);
+  }, [initialInviteCode, inviteesByCode]);
 
   useEffect(() => {
     let frameId = 0;
@@ -226,26 +263,7 @@ export function RSVPGate() {
 
   async function handleGateSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    setGateError("");
-
-    const normalizedCode = normalizeInviteCode(inviteCode);
-    if (!normalizedCode) {
-      setGateError("Please enter the invite code from your invitation.");
-      return;
-    }
-
-    const codeHash = await sha256(normalizedCode);
-    const inviteeMatch = inviteesByCode.get(codeHash);
-    if (!inviteeMatch) {
-      setGateError("Sorry, we couldn't find a matching invitation for that code.");
-      return;
-    }
-
-    setInvitee(inviteeMatch);
-    setCookieValue(unlockedInviteCookieName, inviteeMatch.codeHash);
-    setSubmitMessage("");
-    setSubmitError("");
-    void loadLatestRsvp(inviteeMatch);
+    await unlockInviteCode(inviteCode);
   }
 
   async function handleRsvpSubmit(event: FormEvent<HTMLFormElement>) {

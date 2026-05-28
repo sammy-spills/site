@@ -19,5 +19,5 @@ export const metadata: Metadata = {
 };
 
 export default function RSVPPage() {
-  return <RSVPGate/>;
+  return <RSVPGate />;
 }
