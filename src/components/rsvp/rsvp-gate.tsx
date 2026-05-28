@@ -338,7 +338,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-4 pb-0">
             <div className="mx-auto w-full max-w-3xl">
               <h1 className="text-center font-semibold text-3xl tracking-tight text-white">
-                Laura & Sam&apos;s Wedding Celebration
+                Laura & Sam&apos;s Marriage Celebration
               </h1>
             </div>
           </div>
@@ -361,7 +361,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-8 pb-8">
             <h1 className="text-center font-semibold text-5xl tracking-tight text-white">
-              Laura & Sam&apos;s Wedding Celebration
+              Laura & Sam&apos;s Marriage Celebration
             </h1>
           </div>
         </Card>
@@ -392,7 +392,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                   autoComplete="off"
                   className="h-10 rounded-md border border-input bg-background px-3 text-sm"
                   onChange={(event) => setInviteCode(event.target.value)}
-                  placeholder="e.g., FAM-2027-ALPHA"
+                  placeholder="e.g., AABB11"
                   required
                   value={inviteCode}
                 />
@@ -411,14 +411,19 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
         ) : (
           <>
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-              <h2 className="text-xl font-semibold">Welcome, {invitee.name}</h2>
-              <button
-                className="mt-4 inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium"
-                onClick={resetInvitationAccess}
-                type="button"
-              >
-                Enter a different invite code
-              </button>
+              <div className="text-center">
+                <h2 className="text-3xl font-bold text-primary">
+                  Welcome, {invitee.name}
+                </h2>
+                <button
+                  className="mt-4 inline-flex min-h-9 max-w-full items-center justify-center rounded-md border border-input bg-background px-5 py-2 text-center text-sm font-medium leading-snug"
+                  onClick={resetInvitationAccess}
+                  type="button"
+                >
+                  Filling out for someone else? Click here to enter a different
+                  invite code
+                </button>
+              </div>
 
               {invitee.type === "family" ? (
                 <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
