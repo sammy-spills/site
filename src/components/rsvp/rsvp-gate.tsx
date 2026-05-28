@@ -48,6 +48,18 @@ const FAQ_ITEMS = [
     answer:
       "Named invitees are shown at the top of this page. If you have any questions about your specific invitation, please email us.",
   },
+  {
+    key: "indoor-outdoor",
+    question: "Is it an outdoor or indoor event?",
+    answer:
+      "The day will be held outdoors but we will have a marquee in case the British weather does what it does best!",
+  },
+  {
+    key: "end-time",
+    question: "When will the party end?",
+    answer:
+      "We do not have an end time, but the band will be finished around 23:30.",
+  },
 ];
 
 const FAQ_GUESTS = [
@@ -60,8 +72,20 @@ const FAQ_GUESTS = [
   {
     key: "glamping",
     question: "What's the deal with the glamping?",
-    answer:
-      "We have arranged for a number of festival bell tents to be set up in the grounds. Please let us know (using the form below) if you would like one and if you are happy to share with people you know (they can easily accommodate 4 people)! Both double and single beds can be arranged. For those staying over, breakfast will be provided.",
+    answer: (
+      <>
+        To make life a little easier, we have arranged for a number of festival
+        bell tents to be available at the house. The tents can sleep 4 people
+        comfortably, with space to move around. Very much a “glamping”
+        experience, the bell tents will have beds and be kitted out for everyone
+        to be comfortable – me and Sam will be staying in one! We will have
+        breakfast arranged for everyone on the Sunday morning. If you want to
+        stay over in a bell tent, it would be £30pp to share.
+        <br />
+        If you wanted to stay, but did not feel comfortable sharing, please let
+        us know using the form below!
+      </>
+    ),
   },
 ];
 
@@ -431,39 +455,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                   <dd>Saturday, June 26, 2027</dd>
                   <dt className="font-medium text-muted-foreground">Time</dt>
                   <dd>Arrive from 13:00 PM</dd>
-                  <dt className="font-medium text-muted-foreground">
-                    Family Reception
-                  </dt>
-                  <dd>
-                    <a
-                      className={venueMapLinkClasses}
-                      href={venueMapUrl}
-                      rel="noopener noreferrer"
-                      target="_blank"
-                    >
-                      <span>The Old Rectory, Hammeringham, LN9 6PF</span>
-                      <ExternalLink aria-hidden="true" className="size-3.5" />
-                      <span className="sr-only">(opens in a new tab)</span>
-                    </a>
-                  </dd>
-                  <dt className="font-medium text-muted-foreground">
-                    Main Reception
-                  </dt>
-                  <dd>Guests will arrive from 14:30 PM</dd>
-                  <dt className="font-medium text-muted-foreground">
-                    Dress code
-                  </dt>
-                  <dd>Garden Party Vibes</dd>
-                </dl>
-              ) : (
-                <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
-                  <dt className="font-medium text-muted-foreground">Date</dt>
-                  <dd>Saturday, June 26, 2027</dd>
-                  <dt className="font-medium text-muted-foreground">Time</dt>
-                  <dd>Starts at 14:30 PM</dd>
-                  <dt className="font-medium text-muted-foreground">
-                    Reception
-                  </dt>
+                  <dt className="font-medium text-muted-foreground">Where</dt>
                   <dd>
                     <a
                       className={venueMapLinkClasses}
@@ -480,12 +472,40 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                     Accommodation
                   </dt>
                   <dd>
-                    Glamping pods sleeping up to 4 people are available on-site.
-                    <br />
-                    Please indicate in the form below whether you would like to
-                    stay in one of these, and whether you are willing to share
-                    with another couple. Breakfast will be provided for those
-                    staying on-site.
+                    We have sorted accommodation for all family members. Once
+                    we've confirmed numbers, we will let you know the
+                    arrangements. You do not need to book anything!
+                  </dd>
+                  <dt className="font-medium text-muted-foreground">
+                    Dress code
+                  </dt>
+                  <dd>Garden Party Vibes</dd>
+                </dl>
+              ) : (
+                <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
+                  <dt className="font-medium text-muted-foreground">Date</dt>
+                  <dd>Saturday, June 26, 2027</dd>
+                  <dt className="font-medium text-muted-foreground">Time</dt>
+                  <dd>Starts at 14:30 PM</dd>
+                  <dt className="font-medium text-muted-foreground">Where</dt>
+                  <dd>
+                    <a
+                      className={venueMapLinkClasses}
+                      href={venueMapUrl}
+                      rel="noopener noreferrer"
+                      target="_blank"
+                    >
+                      <span>The Old Rectory, Hammeringham, LN9 6PF</span>
+                      <ExternalLink aria-hidden="true" className="size-3.5" />
+                      <span className="sr-only">(opens in a new tab)</span>
+                    </a>
+                  </dd>
+                  <dt className="font-medium text-muted-foreground">
+                    Accommodation
+                  </dt>
+                  <dd>
+                    We will have some festival bell tents set up. Please see the
+                    FAQ below for more detail!
                   </dd>
                   <dt className="font-medium text-muted-foreground">
                     Dress code
@@ -525,8 +545,15 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <h2 className="text-xl font-semibold">RSVP</h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Please reply by March 1, 2027. Let us know if plans change after
-                submitting.
+                Please reply by November 1, 2026. You can let us know if plans
+                change by re-submitting the form, or emailing us at{" "}
+                <a
+                  className={venueMapLinkClasses}
+                  href="mailto:rsvp@spillard.io"
+                >
+                  rsvp@spillard.io
+                </a>
+                .
               </p>
               {hasPreviouslySubmitted ? (
                 <p className="mt-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
@@ -576,8 +603,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                   <>
                     <label className="flex flex-col gap-2 text-sm font-medium">
                       <p className="font-medium text-muted-foreground">
-                        Happy to stay in provided accommodation? (See details
-                        above)
+                        Happy to stay in provided accommodation? (See FAQ above)
                       </p>
                       <select
                         className="h-10 rounded-md border border-input bg-background px-3 text-sm"

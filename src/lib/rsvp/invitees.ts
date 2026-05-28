@@ -88,13 +88,13 @@ export const invitees: readonly InviteeRecord[] = [
   {
     codeHash:
       "2af8a723bd5c5d7067271591d3ef3bbf4f056d1fff7321c74f6acdc5558139d3",
-    name: "Nana",
+    name: "Nana & Pa",
     type: "family",
   },
   {
     codeHash:
       "4613b5784beb9f12cd1c61ff02fff1f75911615d68b64f354744e7e159006c57",
-    name: "Auntie Gay",
+    name: "Aunty Gay",
     type: "family",
   },
   {
@@ -124,7 +124,7 @@ export const invitees: readonly InviteeRecord[] = [
   {
     codeHash:
       "f5944de8884e063cec06aaf9f82b32e09a7814fbed6731c02998c8186262402e",
-    name: "Bally & Dave",
+    name: "Bali & Dave",
     type: "family",
   },
   {
@@ -184,7 +184,7 @@ export const invitees: readonly InviteeRecord[] = [
   {
     codeHash:
       "3b0373b6d1a2fa45c1a3ebf6d79108e3edc6e6dbebc548496e7cd5e822ed92a0",
-    name: "Zez & Tisha",
+    name: "Zez & Tixa",
     type: "guest",
   },
   {
