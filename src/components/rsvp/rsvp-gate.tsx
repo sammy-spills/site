@@ -9,10 +9,7 @@ import {
   type InviteeRecord,
   normalizeInviteCode,
 } from "@/lib/rsvp/invitees";
-import {
-  Card,
-  CardDescription,
-} from "@/components/ui/card";
+import { Card, CardDescription } from "@/components/ui/card";
 import {
   Accordion,
   AccordionContent,
@@ -32,7 +29,8 @@ const FAQ_ITEMS = [
   {
     key: "dress-code",
     question: "What should I wear?",
-    answer: "We have put the dress code as \"garden party\" as we hope to be outside in the garden. No colour schemes, chilled and informal vibes.",
+    answer:
+      'We have put the dress code as "garden party" as we hope to be outside in the garden. No colour schemes, chilled and informal vibes.',
   },
   {
     key: "day",
@@ -47,7 +45,8 @@ const FAQ_ITEMS = [
   {
     key: "plus-one",
     question: "Can I bring a plus one?",
-    answer: "Your invitation will have all named invitees on it. If you have any questions about your specific invitation, please email us.",
+    answer:
+      "Named invitees are shown at the top of this page. If you have any questions about your specific invitation, please email us.",
   },
 ];
 
@@ -55,16 +54,19 @@ const FAQ_GUESTS = [
   {
     key: "time",
     question: "What time shall I arrive?",
-    answer: "The celebrations start at 14:30. If you are glamping, please feel free to arrive from 14:00 to get settled in.",
+    answer:
+      "The celebrations start at 14:30. If you are glamping, please feel free to arrive from 14:00 to get settled in.",
   },
   {
     key: "glamping",
     question: "What's the deal with the glamping?",
-    answer: "We have arranged for a number of festival bell tents to be set up in the grounds. Please let us know (using the form below) if you would like one and if you are happy to share with people you know (they can easily accommodate 4 people)! Both double and single beds can be arranged. For those staying over, breakfast will be provided.",
+    answer:
+      "We have arranged for a number of festival bell tents to be set up in the grounds. Please let us know (using the form below) if you would like one and if you are happy to share with people you know (they can easily accommodate 4 people)! Both double and single beds can be arranged. For those staying over, breakfast will be provided.",
   },
 ];
 
-const isGuest = (invitee: InviteeRecord | null): boolean => invitee?.type === "guest";
+const isGuest = (invitee: InviteeRecord | null): boolean =>
+  invitee?.type === "guest";
 
 const unlockedInviteCookieName = "wedding_rsvp_unlocked_invite_hash";
 const legacySubmissionsCookieName = "wedding_rsvp_submissions";
@@ -110,7 +112,8 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
   const [gateError, setGateError] = useState("");
   const [invitee, setInvitee] = useState<InviteeRecord | null>(null);
 
-  const [attendanceStatus, setAttendanceStatus] = useState<AttendanceStatus>("yes");
+  const [attendanceStatus, setAttendanceStatus] =
+    useState<AttendanceStatus>("yes");
   const [dietaryRequirements, setDietaryRequirements] = useState("");
   const [accommodation, setAccommodation] = useState<Accommodation>("yes");
   const [roomShare, setRoomShare] = useState<RoomShare>("no-preference");
@@ -169,7 +172,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
       console.error("Failed to load existing RSVP:", error);
       resetFormToDefaults();
       setHasPreviouslySubmitted(false);
-      setSubmitError("We couldn't load your previous RSVP right now, but you can still submit the form.");
+      setSubmitError(
+        "We couldn't load your previous RSVP right now, but you can still submit the form.",
+      );
     } finally {
       if (requestId === latestRsvpRequestId.current) {
         setIsLoadingExistingRsvp(false);
@@ -190,7 +195,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     const inviteeMatch = inviteesByCode.get(codeHash);
     if (!inviteeMatch) {
       setInvitee(null);
-      setGateError("Sorry, we couldn't find a matching invitation for that code.");
+      setGateError(
+        "Sorry, we couldn't find a matching invitation for that code.",
+      );
       return false;
     }
 
@@ -206,7 +213,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     clearCookieValue(legacySubmissionsCookieName);
 
     const searchParamInviteCode =
-      initialInviteCode || new URLSearchParams(window.location.search).get("code") || "";
+      initialInviteCode ||
+      new URLSearchParams(window.location.search).get("code") ||
+      "";
 
     if (searchParamInviteCode.trim()) {
       setInviteCode(searchParamInviteCode);
@@ -292,7 +301,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
       setSubmitMessage("Thanks! Your RSVP has been submitted.");
     } catch (error) {
       console.error("RSVP submission error:", error);
-      setSubmitError("We couldn't submit your RSVP right now. Please try again shortly.");
+      setSubmitError(
+        "We couldn't submit your RSVP right now. Please try again shortly.",
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -358,7 +369,8 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
 
       <div className="mx-auto flex w-full max-w-3xl flex-col gap-8 px-4 pt-8 md:pt-10">
         <CardDescription className="text-center text-lg leading-relaxed">
-          Please enter your unique invite code to view your event details and RSVP.
+          Please enter your unique invite code to view your event details and
+          RSVP.
           <br />
           If you have any questions, email us at{" "}
           <a
@@ -385,7 +397,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                   value={inviteCode}
                 />
               </label>
-              {gateError ? <p className="text-sm text-destructive">{gateError}</p> : null}
+              {gateError ? (
+                <p className="text-sm text-destructive">{gateError}</p>
+              ) : null}
               <button
                 className="inline-flex h-10 items-center justify-center rounded-md bg-primary px-4 text-sm font-medium text-primary-foreground"
                 type="submit"
@@ -398,10 +412,6 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
           <>
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <h2 className="text-xl font-semibold">Welcome, {invitee.name}</h2>
-              <p className="mt-2 text-sm text-muted-foreground">
-                You&apos;re viewing the {invitee.type === "family" ? "family" : "guest"} event
-                plan.
-              </p>
               <button
                 className="mt-4 inline-flex h-9 items-center justify-center rounded-md border border-input bg-background px-3 text-sm font-medium"
                 onClick={resetInvitationAccess}
@@ -416,7 +426,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                   <dd>Saturday, June 26, 2027</dd>
                   <dt className="font-medium text-muted-foreground">Time</dt>
                   <dd>Arrive from 13:00 PM</dd>
-                  <dt className="font-medium text-muted-foreground">Family Reception</dt>
+                  <dt className="font-medium text-muted-foreground">
+                    Family Reception
+                  </dt>
                   <dd>
                     <a
                       className={venueMapLinkClasses}
@@ -429,9 +441,13 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                       <span className="sr-only">(opens in a new tab)</span>
                     </a>
                   </dd>
-                  <dt className="font-medium text-muted-foreground">Main Reception</dt>
+                  <dt className="font-medium text-muted-foreground">
+                    Main Reception
+                  </dt>
                   <dd>Guests will arrive from 14:30 PM</dd>
-                  <dt className="font-medium text-muted-foreground">Dress code</dt>
+                  <dt className="font-medium text-muted-foreground">
+                    Dress code
+                  </dt>
                   <dd>Garden Party Vibes</dd>
                 </dl>
               ) : (
@@ -440,7 +456,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                   <dd>Saturday, June 26, 2027</dd>
                   <dt className="font-medium text-muted-foreground">Time</dt>
                   <dd>Starts at 14:30 PM</dd>
-                  <dt className="font-medium text-muted-foreground">Reception</dt>
+                  <dt className="font-medium text-muted-foreground">
+                    Reception
+                  </dt>
                   <dd>
                     <a
                       className={venueMapLinkClasses}
@@ -453,15 +471,20 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                       <span className="sr-only">(opens in a new tab)</span>
                     </a>
                   </dd>
-                  <dt className="font-medium text-muted-foreground">Accommodation</dt>
+                  <dt className="font-medium text-muted-foreground">
+                    Accommodation
+                  </dt>
                   <dd>
                     Glamping pods sleeping up to 4 people are available on-site.
                     <br />
-                    Please indicate in the form below whether you would like to stay in one of
-                    these, and whether you are willing to share with another couple. Breakfast
-                    will be provided for those staying on-site.
+                    Please indicate in the form below whether you would like to
+                    stay in one of these, and whether you are willing to share
+                    with another couple. Breakfast will be provided for those
+                    staying on-site.
                   </dd>
-                  <dt className="font-medium text-muted-foreground">Dress code</dt>
+                  <dt className="font-medium text-muted-foreground">
+                    Dress code
+                  </dt>
                   <dd>Garden Party Vibes</dd>
                 </dl>
               )}
@@ -470,15 +493,22 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <Accordion>
                 <AccordionItem key="faq">
-                  <AccordionTrigger><h2 className="text-xl font-semibold">FAQ</h2></AccordionTrigger>
+                  <AccordionTrigger>
+                    <h2 className="text-xl font-semibold">FAQ</h2>
+                  </AccordionTrigger>
                   <AccordionContent>
                     <Accordion>
-                      {(isGuest(invitee) ? [...FAQ_GUESTS, ...FAQ_ITEMS]: FAQ_ITEMS).map((item) => (
+                      {(isGuest(invitee)
+                        ? [...FAQ_GUESTS, ...FAQ_ITEMS]
+                        : FAQ_ITEMS
+                      ).map((item) => (
                         <AccordionItem key={item.key}>
-                          <AccordionTrigger><h2 className="text-lg font-medium">{item.question}</h2></AccordionTrigger>
-                          <AccordionContent>
-                            {item.answer}
-                          </AccordionContent>
+                          <AccordionTrigger>
+                            <h2 className="text-lg font-medium">
+                              {item.question}
+                            </h2>
+                          </AccordionTrigger>
+                          <AccordionContent>{item.answer}</AccordionContent>
                         </AccordionItem>
                       ))}
                     </Accordion>
@@ -490,12 +520,13 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <h2 className="text-xl font-semibold">RSVP</h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Please reply by March 1, 2027. Let us know if plans change after submitting.
+                Please reply by March 1, 2027. Let us know if plans change after
+                submitting.
               </p>
               {hasPreviouslySubmitted ? (
                 <p className="mt-3 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700">
-                  We already have an RSVP from you, but you can resubmit this form anytime to
-                  update your answers.
+                  We already have an RSVP from you, but you can resubmit this
+                  form anytime to update your answers.
                 </p>
               ) : null}
               {isLoadingExistingRsvp ? (
@@ -505,11 +536,15 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
               ) : null}
               <form className="mt-5 space-y-4" onSubmit={handleRsvpSubmit}>
                 <label className="flex flex-col gap-2 text-sm font-medium">
-                  <p className="font-medium text-muted-foreground">Attendance status</p>
+                  <p className="font-medium text-muted-foreground">
+                    Attendance status
+                  </p>
                   <select
                     className="h-10 rounded-md border border-input bg-background px-3 text-sm"
                     onChange={(event) =>
-                      setAttendanceStatus(event.target.value as AttendanceStatus)
+                      setAttendanceStatus(
+                        event.target.value as AttendanceStatus,
+                      )
                     }
                     value={attendanceStatus}
                   >
@@ -519,10 +554,14 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                 </label>
 
                 <label className="flex flex-col gap-2 text-sm font-medium">
-                  <p className="font-medium text-muted-foreground">Dietary requirements</p>
+                  <p className="font-medium text-muted-foreground">
+                    Dietary requirements
+                  </p>
                   <textarea
                     className="min-h-24 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                    onChange={(event) => setDietaryRequirements(event.target.value)}
+                    onChange={(event) =>
+                      setDietaryRequirements(event.target.value)
+                    }
                     placeholder="Allergies, intolerances, preferences"
                     value={dietaryRequirements}
                   />
@@ -531,10 +570,15 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                 {invitee.type === "guest" ? (
                   <>
                     <label className="flex flex-col gap-2 text-sm font-medium">
-                      <p className="font-medium text-muted-foreground">Happy to stay in provided accommodation? (See details above)</p>
+                      <p className="font-medium text-muted-foreground">
+                        Happy to stay in provided accommodation? (See details
+                        above)
+                      </p>
                       <select
                         className="h-10 rounded-md border border-input bg-background px-3 text-sm"
-                        onChange={(event) => setAccommodation(event.target.value as Accommodation)}
+                        onChange={(event) =>
+                          setAccommodation(event.target.value as Accommodation)
+                        }
                         value={accommodation}
                       >
                         <option value="yes">Yes</option>
@@ -543,10 +587,14 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                     </label>
 
                     <label className="flex flex-col gap-2 text-sm font-medium">
-                      <p className="font-medium text-muted-foreground">Willing to share a pod in provided accommodation?</p>
+                      <p className="font-medium text-muted-foreground">
+                        Willing to share a pod in provided accommodation?
+                      </p>
                       <select
                         className="h-10 rounded-md border border-input bg-background px-3 text-sm"
-                        onChange={(event) => setRoomShare(event.target.value as RoomShare)}
+                        onChange={(event) =>
+                          setRoomShare(event.target.value as RoomShare)
+                        }
                         value={roomShare}
                       >
                         <option value="yes">Yes</option>
@@ -556,11 +604,17 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                     </label>
 
                     <label className="flex flex-col gap-2 text-sm font-medium">
-                      <p className="font-medium text-muted-foreground">How will you be arriving?</p>
+                      <p className="font-medium text-muted-foreground">
+                        How will you be arriving?
+                      </p>
                       <textarea
                         className="min-h-24 rounded-md border border-input bg-background px-3 py-2 text-sm"
-                        onChange={(event) => setTransportation(event.target.value)}
-                        placeholder={"E.g. train, driving etc.\nIf lots of people are taking public transport, we may be able to arrange travel to the house as it is a very rural location!"}
+                        onChange={(event) =>
+                          setTransportation(event.target.value)
+                        }
+                        placeholder={
+                          "E.g. train, driving etc.\nIf lots of people are taking public transport, we may be able to arrange travel to the house as it is a very rural location!"
+                        }
                         required
                         value={transportation}
                       />
@@ -569,7 +623,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                 ) : null}
 
                 <label className="flex flex-col gap-2 text-sm font-medium">
-                  <p className="font-medium text-muted-foreground">Primary email address</p>
+                  <p className="font-medium text-muted-foreground">
+                    Primary email address
+                  </p>
                   <input
                     autoComplete="email"
                     className="h-10 rounded-md border border-input bg-background px-3 text-sm"
@@ -581,7 +637,11 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                 </label>
 
                 {submitError ? (
-                  <p aria-live="assertive" className="text-sm text-destructive" role="alert">
+                  <p
+                    aria-live="assertive"
+                    className="text-sm text-destructive"
+                    role="alert"
+                  >
                     {submitError}
                   </p>
                 ) : null}
