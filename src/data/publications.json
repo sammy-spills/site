@@ -15,7 +15,8 @@
       "venue": "arXiv",
       "date": "2025",
       "type": "Preprint",
-      "link": "https://doi.org/10.48550/arXiv.2509.12895"
+      "link": "https://doi.org/10.48550/arXiv.2509.12895",
+      "abstract": "TimeCluster reveals structure in long multivariate time series by turning sliding windows into a low-dimensional visual map. This paper shows that, when TimeCluster uses PCA, it is mathematically the same as classical subspace system identification: both build a Hankel-style window matrix and use SVD to extract the same underlying linear state space. Experiments confirm the embeddings match, opening up links between visual analytics and dynamical systems methods such as forecasting, streaming analysis, input-aware modelling, and robust trend discovery."
     },
     {
       "title": "Brief analysis of DeepSeek R1 and its implications for Generative AI",
@@ -23,7 +24,8 @@
       "venue": "arXiv",
       "date": "2025",
       "type": "Preprint",
-      "link": "https://doi.org/10.48550/arXiv.2502.02523"
+      "link": "https://doi.org/10.48550/arXiv.2502.02523",
+      "abstract": "DeepSeek R1 challenged assumptions about the cost and infrastructure needed to build frontier reasoning models. This report examines how techniques such as Mixture of Experts, reinforcement learning, and efficient engineering helped make the model competitive with leading Western systems, and considers what its release signals for the future direction of Generative AI."
     },
     {
       "title": "Developing Optimal Causal Cyber-defence Agents via Cyber Security Simulation",
@@ -31,7 +33,8 @@
       "venue": "ML4Cyber Workshop at 39th International Conference on Machine Learning (ICML)",
       "date": "2022",
       "type": "Workshop",
-      "link": "https://doi.org/10.48550/arXiv.2207.12355"
+      "link": "https://doi.org/10.48550/arXiv.2207.12355",
+      "abstract": "This paper presents a cyber-simulation framework where dynamic causal Bayesian optimisation acts as a blue agent, selecting defensive interventions to limit a red agent’s spread through a network. By combining causal modelling, optimisation, and simulated intrusion data, it lays the groundwork for more principled decision-making in automated cyber defence."
     },
     {
       "title": "Machine Learning Entanglement Freedom",
@@ -39,7 +42,8 @@
       "venue": "International Journal of Quantum Information",
       "date": "2018",
       "type": "Journal Article",
-      "link": "https://doi.org/10.1142/S0219749918400026"
+      "link": "https://doi.org/10.48550/arXiv.1803.01035",
+      "abstract": "This paper applies machine learning to quantify interaction effects in quantum many-body systems. By predicting, and then approximating, the interaction distance from entanglement spectra, it shows that supervised models and autoencoders can recover meaningful signatures of interacting quantum physics without directly solving the full optimisation problem."
     }
   ]
 }

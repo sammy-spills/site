@@ -7,48 +7,44 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  --background: oklch(0.973 0.006 106);
-  --foreground: oklch(0.235 0.01 95);
-  --card: oklch(0.985 0.004 106);
-  --card-foreground: oklch(0.235 0.01 95);
-  --popover: oklch(0.985 0.004 106);
-  --popover-foreground: oklch(0.235 0.01 95);
+  --background: oklch(0.982 0.018 93);
+  --foreground: oklch(0.23 0.006 70);
+  --card: oklch(0.989 0.012 93);
+  --card-foreground: oklch(0.23 0.006 70);
+  --popover: oklch(0.989 0.012 93);
+  --popover-foreground: oklch(0.23 0.006 70);
 
-  /* Muted sage primary */
   --primary: oklch(0.62 0.035 155);
-  --primary-foreground: oklch(0.985 0.003 106);
+  --primary-foreground: oklch(0.982 0.018 93);
 
-  /* Soft stone / paper neutrals */
-  --secondary: oklch(0.945 0.008 110);
-  --secondary-foreground: oklch(0.28 0.01 95);
-  --muted: oklch(0.955 0.006 108);
-  --muted-foreground: oklch(0.52 0.015 120);
+  --secondary: oklch(0.925 0.025 88);
+  --secondary-foreground: oklch(0.28 0.01 70);
+  --muted: oklch(0.94 0.018 90);
+  --muted-foreground: oklch(0.48 0.018 72);
 
-  /* Accent kept aligned with primary for editorial restraint */
-  --accent: oklch(0.9 0.012 145);
-  --accent-foreground: oklch(0.28 0.01 95);
+  --accent: oklch(0.84 0.19 77);
+  --accent-foreground: oklch(0.23 0.006 70);
 
   --destructive: oklch(0.568 0.2002 26.4057);
   --destructive-foreground: oklch(1 0 0);
 
-  --border: oklch(0.89 0.01 110);
-  --input: oklch(0.89 0.01 110);
+  --border: oklch(0.81 0.025 86);
+  --input: oklch(0.81 0.025 86);
   --ring: oklch(0.62 0.035 155);
 
-  /* Charts: quiet, editorial, desaturated */
   --chart-1: oklch(0.62 0.035 155);
-  --chart-2: oklch(0.55 0.02 220);
-  --chart-3: oklch(0.78 0.02 110);
-  --chart-4: oklch(0.7 0.025 180);
-  --chart-5: oklch(0.45 0.015 250);
+  --chart-2: oklch(0.84 0.19 77);
+  --chart-3: oklch(0.5 0.08 296);
+  --chart-4: oklch(0.43 0.04 200);
+  --chart-5: oklch(0.3 0.01 70);
 
-  --sidebar: oklch(0.955 0.006 108);
-  --sidebar-foreground: oklch(0.235 0.01 95);
+  --sidebar: oklch(0.23 0.006 70);
+  --sidebar-foreground: oklch(0.982 0.018 93);
   --sidebar-primary: oklch(0.62 0.035 155);
-  --sidebar-primary-foreground: oklch(0.985 0.003 106);
-  --sidebar-accent: oklch(0.91 0.01 145);
-  --sidebar-accent-foreground: oklch(0.28 0.01 95);
-  --sidebar-border: oklch(0.89 0.01 110);
+  --sidebar-primary-foreground: oklch(0.982 0.018 93);
+  --sidebar-accent: oklch(0.31 0.01 70);
+  --sidebar-accent-foreground: oklch(0.982 0.018 93);
+  --sidebar-border: oklch(0.37 0.01 70);
   --sidebar-ring: oklch(0.62 0.035 155);
 
   --font-sans: var(--font-literata), serif;
@@ -56,7 +52,7 @@
   --font-display: var(--font-cormorant-garamond), serif;
   --font-mono: JetBrains Mono, monospace;
 
-  --radius: 0.5rem;
+  --radius: 0rem;
 
   --shadow-2xs: 0px 8px 15px 0px hsl(150 10% 20% / 0.025);
   --shadow-xs: 0px 8px 15px 0px hsl(150 10% 20% / 0.025);
@@ -72,7 +68,7 @@
     0px 8px 15px 0px hsl(150 10% 20% / 0.06), 0px 8px 10px -1px hsl(150 10% 20% / 0.06);
   --shadow-2xl: 0px 8px 15px 0px hsl(150 10% 20% / 0.12);
 
-  --tracking-normal: -0.02em;
+  --tracking-normal: 0em;
   --spacing: 0.25rem;
   --shadow-color: #2f3a34;
   --shadow-opacity: 0.05;
@@ -80,7 +76,7 @@
   --shadow-spread: 0px;
   --shadow-offset-x: 0px;
   --shadow-offset-y: 8px;
-  --letter-spacing: -0.02em;
+  --letter-spacing: 0em;
 }
 
 .dark {
@@ -139,7 +135,7 @@
     0px 10px 25px 0px hsl(0 0% 0% / 0.38), 0px 8px 10px -1px hsl(0 0% 0% / 0.38);
   --shadow-2xl: 0px 10px 25px 0px hsl(0 0% 0% / 0.7);
 
-  --radius: 0.75rem;
+  --radius: 0rem;
   --font-sans: var(--font-literata), serif;
   --font-serif: Georgia, "Times New Roman", Times, serif;
   --font-display: var(--font-cormorant-garamond), serif;
@@ -151,7 +147,7 @@
   --shadow-spread: 0px;
   --shadow-offset-x: 0px;
   --shadow-offset-y: 10px;
-  --letter-spacing: -0.02em;
+  --letter-spacing: 0em;
   --spacing: 0.25rem;
 }
 
@@ -207,12 +203,12 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
-  --radius: 0.75rem;
-  --tracking-tighter: calc(var(--tracking-normal) - 0.05em);
-  --tracking-tight: calc(var(--tracking-normal) - 0.025em);
-  --tracking-wide: calc(var(--tracking-normal) + 0.025em);
-  --tracking-wider: calc(var(--tracking-normal) + 0.05em);
-  --tracking-widest: calc(var(--tracking-normal) + 0.1em);
+  --radius: 0rem;
+  --tracking-tighter: 0em;
+  --tracking-tight: 0em;
+  --tracking-wide: 0em;
+  --tracking-wider: 0em;
+  --tracking-widest: 0em;
   --tracking-normal: var(--tracking-normal);
   --spacing: var(--spacing);
   --letter-spacing: var(--letter-spacing);
@@ -246,41 +242,6 @@
 
   ::selection {
     background: color-mix(in oklab, var(--primary) 18%, transparent);
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    font-family: var(--font-display);
-    color: var(--foreground);
-    font-weight: 700;
-    line-height: 1.08;
-    letter-spacing: -0.035em;
-    text-wrap: balance;
-  }
-
-  h1 {
-    font-size: clamp(2.5rem, 6vw, 4.75rem);
-    line-height: 0.98;
-    letter-spacing: -0.045em;
-  }
-
-  h2 {
-    font-size: clamp(2rem, 4vw, 3rem);
-    line-height: 1.02;
-  }
-
-  h3 {
-    font-size: clamp(1.5rem, 3vw, 2.1rem);
-    line-height: 1.08;
-  }
-
-  h4 {
-    font-size: clamp(1.2rem, 2vw, 1.5rem);
-    line-height: 1.15;
   }
 
   p {
@@ -359,7 +320,7 @@
     margin-top: 0;
     margin-bottom: 1rem;
     line-height: 0.98;
-    letter-spacing: -0.045em;
+    letter-spacing: 0;
   }
 
   .prose h2 {
@@ -367,21 +328,21 @@
     margin-bottom: 0.8em;
     padding-top: 0.2em;
     line-height: 1.04;
-    letter-spacing: -0.04em;
+    letter-spacing: 0;
   }
 
   .prose h3 {
     margin-top: 2em;
     margin-bottom: 0.65em;
     line-height: 1.12;
-    letter-spacing: -0.03em;
+    letter-spacing: 0;
   }
 
   .prose h4 {
     margin-top: 1.6em;
     margin-bottom: 0.5em;
     line-height: 1.18;
-    letter-spacing: -0.02em;
+    letter-spacing: 0;
   }
 
   .prose p,
@@ -501,5 +462,28 @@
 
   .prose [data-footnote-backref] {
     @apply ml-1 text-muted-foreground no-underline;
+  }
+}
+
+@layer components {
+  .mistral-prototype {
+    background:
+      linear-gradient(color-mix(in oklab, var(--border) 42%, transparent) 1px, transparent 1px),
+      linear-gradient(90deg, color-mix(in oklab, var(--border) 42%, transparent) 1px, transparent 1px),
+      var(--background);
+    background-size:
+      48px 48px,
+      48px 48px,
+      auto;
+  }
+
+  .hero-grid {
+    background:
+      linear-gradient(110deg, transparent 0 58%, color-mix(in oklab, var(--primary) 12%, transparent) 58% 100%),
+      var(--background);
+  }
+
+  .sunset-stripe {
+    background: linear-gradient(90deg, var(--primary) 0%, color-mix(in oklab, var(--primary) 42%, #fff8e0) 46%, #fff8e0 100%);
   }
 }

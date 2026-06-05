@@ -15,14 +15,19 @@ import { site } from "@/lib/data";
 
 export function AppSidebar({ ...props }: ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="icon" variant="inset" {...props}>
-      <SidebarHeader>
+    <Sidebar
+      className="border-sidebar-border/80"
+      collapsible="icon"
+      variant="inset"
+      {...props}
+    >
+      <SidebarHeader className="border-sidebar-border/70 border-b p-0">
         <SidebarProfile profile={site.profile} />
       </SidebarHeader>
-      <SidebarContent>
+      <SidebarContent className="gap-0 py-4">
         <NavMain />
       </SidebarContent>
-      <SidebarFooter>
+      <SidebarFooter className="border-sidebar-border/70 border-t p-0">
         <SidebarSocial social={site.social} />
       </SidebarFooter>
       <SidebarRail />

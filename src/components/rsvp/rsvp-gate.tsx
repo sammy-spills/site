@@ -361,7 +361,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-4 pb-0">
             <div className="mx-auto w-full max-w-3xl">
-              <h1 className="text-center font-semibold text-3xl tracking-tight text-white">
+              <h1 className="text-center font-display text-3xl tracking-tight text-white">
                 Laura & Sam&apos;s Marriage Celebration
               </h1>
             </div>
@@ -384,7 +384,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
             width={2736}
           />
           <div className="pointer-events-none absolute inset-x-0 bottom-0 z-10 px-8 pb-8">
-            <h1 className="text-center font-semibold text-5xl tracking-tight text-white">
+            <h1 className="text-center font-display font-bold text-5xl tracking-tight text-white">
               Laura & Sam&apos;s Marriage Celebration
             </h1>
           </div>
@@ -408,7 +408,9 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
 
         {!invitee ? (
           <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-            <h2 className="text-xl font-medium">Invitation access</h2>
+            <h2 className="text-xl font-display font-medium">
+              Invitation access
+            </h2>
             <form className="mt-4 space-y-4" onSubmit={handleGateSubmit}>
               <label className="flex flex-col gap-2 text-sm font-medium">
                 Invite code
@@ -436,7 +438,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
           <>
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
               <div className="text-center">
-                <h2 className="text-3xl font-bold text-primary">
+                <h2 className="text-3xl font-bold font-display text-primary">
                   Welcome, {invitee.name}
                 </h2>
                 <button
@@ -519,7 +521,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
               <Accordion>
                 <AccordionItem key="faq">
                   <AccordionTrigger>
-                    <h2 className="text-xl font-semibold">FAQ</h2>
+                    <h2 className="text-xl font-display font-semibold">FAQ</h2>
                   </AccordionTrigger>
                   <AccordionContent>
                     <Accordion>
@@ -529,11 +531,13 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                       ).map((item) => (
                         <AccordionItem key={item.key}>
                           <AccordionTrigger>
-                            <h2 className="text-lg font-medium">
+                            <h2 className="text-sm font-medium leading-snug">
                               {item.question}
                             </h2>
                           </AccordionTrigger>
-                          <AccordionContent>{item.answer}</AccordionContent>
+                          <AccordionContent className="text-muted-foreground text-sm leading-relaxed">
+                            {item.answer}
+                          </AccordionContent>
                         </AccordionItem>
                       ))}
                     </Accordion>
@@ -543,7 +547,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
             </section>
 
             <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
-              <h2 className="text-xl font-semibold">RSVP</h2>
+              <h2 className="text-xl font-display font-semibold">RSVP</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Please reply by November 1, 2026. You can let us know if plans
                 change by re-submitting the form, or emailing us at{" "}

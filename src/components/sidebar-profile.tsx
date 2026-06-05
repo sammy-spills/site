@@ -22,22 +22,24 @@ export function SidebarProfile({ profile }: SidebarProfileProps) {
     .join("");
 
   return (
-    <SidebarMenu>
+    <SidebarMenu className="gap-0">
       <SidebarMenuItem>
         <SidebarMenuButton
-          className="data-[slot=sidebar-menu-button]:!h-auto group-data-[collapsible=icon]:!p-0.5 group-data-[collapsible=icon]:!pl-[3px]"
+          className="data-[slot=sidebar-menu-button]:!h-auto rounded-none border-sidebar-border/70 border-b-0 px-4 py-5 hover:bg-sidebar-accent/70 data-[slot=sidebar-menu-button]:gap-3 group-data-[collapsible=icon]:!size-12 group-data-[collapsible=icon]:!justify-center group-data-[collapsible=icon]:!p-0"
           render={<Link href="/" />}
           size="lg"
           tooltip={displayName}
         >
-          <div className="flex size-7 shrink-0 items-center justify-center rounded-full bg-primary font-semibold text-primary-foreground text-xs group-data-[state=expanded]:size-8 group-data-[state=expanded]:text-sm">
+          <div className="flex size-9 shrink-0 items-center justify-center border border-primary bg-primary font-semibold text-primary-foreground text-xs group-data-[state=expanded]:size-10 group-data-[state=expanded]:text-sm">
             {initials || "YN"}
           </div>
-          <div className="grid flex-1 text-left leading-tight">
-            <span className="truncate font-semibold text-sm">
+          <div className="grid flex-1 gap-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
+            <span className="truncate font-semibold text-sidebar-foreground text-sm">
               {displayName}
             </span>
-            <span className="truncate text-xs">{profile.role}</span>
+            <span className="line-clamp-2 text-sidebar-foreground/62 text-xs leading-4">
+              {profile.role}
+            </span>
           </div>
         </SidebarMenuButton>
       </SidebarMenuItem>
