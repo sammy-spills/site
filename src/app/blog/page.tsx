@@ -45,7 +45,7 @@ export default function BlogIndexPage() {
             <p className="max-w-3xl px-6 text-muted-foreground text-xl leading-8 md:px-12 lg:py-14">
               {metadata.description}
             </p>
-            <div className="mt-10 ml-12 grid w-[calc(100%-3rem)] border border-border md:w-96 md:grid-cols-2 lg:mt-0 lg:h-24">
+            <div className="mt-11 ml-12 grid w-[calc(100%-3rem)] h-24 border border-border md:w-96 md:grid-cols-2 lg:mt-0 lg:h-24">
               <div className="flex flex-col justify-center border-border border-b px-5 md:border-r md:border-b-0">
                 <p className="font-mono text-[0.7rem] text-muted-foreground uppercase">
                   Total posts
