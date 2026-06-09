@@ -261,38 +261,52 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     void loadLatestRsvp(unlockedInvitee);
   }, [initialInviteCode, inviteesByCode]);
 
-  useEffect(() => {
-    let frameId = 0;
+    useEffect(() => {
+      let frameId = 0;
 
-    function syncHeroScroll() {
+      function syncHeroScroll() {
+        const heroCard = desktopHeroCardRef.current;
+        if (!heroCard || !window.matchMedia("(min-width: 768px)").matches) {
+          return;
+        }
+
+        const maxInternalScroll = heroCard.scrollHeight - heroCard.clientHeight;
+        if (maxInternalScroll <= 0) {
+          return;
+        }
+
+        // Scroll the card based on window scroll position
+        heroCard.scrollTop = Math.min(maxInternalScroll, window.scrollY * 0.35);
+      }
+
+      function handleWindowScroll() {
+        cancelAnimationFrame(frameId);
+        frameId = window.requestAnimationFrame(syncHeroScroll);
+      }
+
+      function handleCardWheel(event: WheelEvent) {
+        // Prevent manual scrolling of the card
+        event.preventDefault();
+      }
+
       const heroCard = desktopHeroCardRef.current;
-      if (!heroCard || !window.matchMedia("(min-width: 768px)").matches) {
-        return;
+      if (heroCard) {
+        heroCard.addEventListener("wheel", handleCardWheel, { passive: false });
       }
 
-      const maxInternalScroll = heroCard.scrollHeight - heroCard.clientHeight;
-      if (maxInternalScroll <= 0) {
-        return;
-      }
+      syncHeroScroll();
+      window.addEventListener("scroll", handleWindowScroll, { passive: true });
+      window.addEventListener("resize", handleWindowScroll);
 
-      heroCard.scrollTop = Math.min(maxInternalScroll, window.scrollY * 0.35);
-    }
-
-    function handleScroll() {
-      cancelAnimationFrame(frameId);
-      frameId = window.requestAnimationFrame(syncHeroScroll);
-    }
-
-    syncHeroScroll();
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    window.addEventListener("resize", handleScroll);
-
-    return () => {
-      cancelAnimationFrame(frameId);
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("resize", handleScroll);
-    };
-  }, []);
+      return () => {
+        cancelAnimationFrame(frameId);
+        window.removeEventListener("scroll", handleWindowScroll);
+        window.removeEventListener("resize", handleWindowScroll);
+        if (heroCard) {
+          heroCard.removeEventListener("wheel", handleCardWheel);
+        }
+      };
+    }, []);
 
   async function handleGateSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
@@ -371,7 +385,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
 
       <div className="mx-auto hidden w-full max-w-5xl px-4 pt-6 md:block">
         <Card
-          className="relative mx-auto h-[70vh] max-h-[900px] min-h-[520px] w-full max-w-4xl overflow-x-hidden overflow-y-auto py-0"
+          className="relative mx-auto h-[70vh] max-h-[900px] min-h-[520px] w-full max-w-4xl overflow-x-hidden overflow-y-scroll scrollbar-hide py-0"
           ref={desktopHeroCardRef}
         >
           <Image

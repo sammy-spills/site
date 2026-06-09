@@ -486,4 +486,10 @@
   .sunset-stripe {
     background: linear-gradient(90deg, var(--primary) 0%, color-mix(in oklab, var(--primary) 42%, #fff8e0) 46%, #fff8e0 100%);
   }
+
+  .scrollbar-hide {
+    /* Chrome, Safari and Opera */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
 }
