@@ -347,7 +347,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
   }
 
   return (
-    <div className="mistral-prototype w-full pb-12">
+    <div className="mistral-prototype pb-12 -mx-6 md:-mx-10 lg:-mx-16">
       <div className="relative left-1/2 w-screen -translate-x-1/2 md:hidden">
         <div className="relative">
           <Image

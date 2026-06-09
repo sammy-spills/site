@@ -66,6 +66,11 @@ CLAUDE.md
 .cursorignore
 .cursorindexingignore
 
+# playwright and claude
+.playwright-mcp/
+.playwright-cli/
+.claude/
+
 # Dolt database files (added by bd init)
 .dolt/
 *.db
