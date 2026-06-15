@@ -27,6 +27,9 @@ export const metadata: Metadata = {
     template: `%s — ${site.seo.defaultTitle}`,
   },
   description: site.seo.defaultDescription,
+  icons: {
+    icon: "/favicon.webp",
+  },
   openGraph: {
     title: site.seo.defaultTitle,
     description: site.seo.defaultDescription,
@@ -53,11 +56,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html
-      lang="en"
-      suppressHydrationWarning
-      className={`${literata.variable} ${cormorantGaramond.variable}`}
-    >
+    <html lang="en" suppressHydrationWarning>
       <body className={`${literata.className} antialiased`}>
         <ThemeProvider>
           <SidebarLayout>{children}</SidebarLayout>

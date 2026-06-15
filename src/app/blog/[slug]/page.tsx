@@ -1,7 +1,8 @@
 import { Prose } from "@/components/prose";
+import { TableOfContents } from "@/components/table-of-contents";
 import { Badge } from "@/components/ui/badge";
 import { getAllSlugs, getContentBySlug } from "@/lib/content";
-import { renderMdx } from "@/lib/mdx";
+import { renderMdxWithToc } from "@/lib/mdx";
 import {
   blogFrontmatterSchema,
   type BlogFrontmatter,
@@ -62,10 +63,11 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   }
 
   const metadata = blogFrontmatterSchema.parse(post.metadata);
-  const content = await renderMdx(post.content);
+  const { content, headings } = await renderMdxWithToc(post.content);
 
-  return (
-    <article className="space-y-8">
+  // Header section (back link, date, title, excerpt, tags, image)
+  const headerSection = (
+    <div className="space-y-8">
       <div className="space-y-4">
         <Link
           className="text-muted-foreground text-sm underline-offset-4 hover:underline"
@@ -92,7 +94,7 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
       </div>
 
       {metadata.image && (
-        <div className="relative aspect-[16/9] overflow-hidden rounded-2xl border">
+        <div className="relative mx-auto aspect-[16/9] max-w-prose overflow-hidden rounded-2xl border">
           <Image
             alt={metadata.title}
             className="object-cover"
@@ -104,8 +106,29 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           />
         </div>
       )}
+    </div>
+  );
 
-      <Prose>{content}</Prose>
-    </article>
+  return (
+    <div className="flex flex-col gap-8 lg:flex-row">
+      {/* Table of Contents - Left Sidebar on desktop, below hero on mobile */}
+      <aside className="lg:w-80 lg:shrink-0 lg:sticky lg:top-20 lg:self-start">
+        <div className="hidden lg:block">
+          <TableOfContents items={headings} title={metadata.title} />
+        </div>
+      </aside>
+
+      {/* Main Article Content */}
+      <article className="flex-1 space-y-8">
+        {headerSection}
+
+        {/* Mobile TOC - shown below hero image */}
+        <div className="lg:hidden">
+          <TableOfContents items={headings} title={metadata.title} />
+        </div>
+
+        <Prose>{content}</Prose>
+      </article>
+    </div>
   );
 }

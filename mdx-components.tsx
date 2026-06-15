@@ -1,4 +1,5 @@
 import type { MDXComponents } from "mdx/types";
+import { Footnote, Footnotes } from "@/components/footnote";
 
 function isExternalUrl(href: string): boolean {
   return href.startsWith("http://") || href.startsWith("https://");
@@ -20,6 +21,8 @@ export function useMDXComponents(components: MDXComponents): MDXComponents {
         </a>
       );
     },
+    Footnote,
+    Footnotes,
     ...components,
   };
 }

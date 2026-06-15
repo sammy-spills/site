@@ -123,7 +123,7 @@ export default function BlogIndexPage() {
                       >
                         <Image
                           alt={post.metadata.title}
-                          className="object-cover grayscale transition-transform duration-500 hover:scale-[1.04]"
+                          className="object-cover transition-transform duration-500 hover:scale-[1.04]"
                           fill
                           sizes="(max-width: 1024px) 100vw, 176px"
                           src={post.metadata.image}
