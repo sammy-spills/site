@@ -105,8 +105,8 @@ export function Footnote({ id, children }: FootnoteProps) {
       {/* Tooltip in document flow that pushes content down */}
       <div
         ref={tooltipRef}
-        className={`block transition-all duration-200 ease-in-out overflow-hidden shadow-[inset_0_0_6px_rgba(0,0,0,0.15)] dark:shadow-[inset_0_0_6px_rgba(0,0,0,0.95)] ${
-          isHovered ? "py-2" : "h-0"
+        className={`block transition-all duration-500 ease-in-out overflow-hidden shadow-[inset_0_0_6px_rgba(0,0,0,0.15)] dark:shadow-[inset_0_0_6px_rgba(0,0,0,0.95)] ${
+          isHovered ? "max-h-screen py-2" : "max-h-0"
         }`}
         // style={{
         //   position: "absolute",
