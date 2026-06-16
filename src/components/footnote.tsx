@@ -1,29 +1,32 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 
 /**
  * Footnote component for use in MDX content.
- * 
+ *
  * Usage in MDX:
  * ```mdx
  * Here is some text with a footnote.<Footnote id="1">This is the footnote text.</Footnote>
- * 
+ *
  * More text.<Footnote id="2">Another footnote.</Footnote>
- * 
+ *
  * <Footnotes />
  * ```
- * 
+ *
  * Or with the content as children:
  * ```mdx
  * Here is a reference.<Footnote id="source">Source: Example.com</Footnote>
- * 
+ *
  * <Footnotes />
  * ```
  */
 
 // Store footnote definitions globally for the page
-const footnoteStore = new Map<string, { index: number; content: React.ReactNode }>();
+const footnoteStore = new Map<
+  string,
+  { index: number; content: React.ReactNode }
+>();
 
 // Track which footnotes have been registered
 const registeredFootnotes = new Set<string>();
@@ -45,47 +48,82 @@ interface FootnotesProps {
  * Shows a superscript number and displays a tooltip on hover.
  */
 export function Footnote({ id, children }: FootnoteProps) {
-   // Register the footnote on first render
-   if (!registeredFootnotes.has(id)) {
-     registeredFootnotes.add(id);
-     footnoteStore.set(id, {
-       index: nextFootnoteIndex++,
-       content: children,
-     });
-   }
+  // Register the footnote on first render
+  if (!registeredFootnotes.has(id)) {
+    registeredFootnotes.add(id);
+    footnoteStore.set(id, {
+      index: nextFootnoteIndex++,
+      content: children,
+    });
+  }
 
-   const footnote = footnoteStore.get(id);
-   const [isHovered, setIsHovered] = useState(false);
+  const footnote = footnoteStore.get(id);
+  const [isHovered, setIsHovered] = useState(false);
+  const supRef = useRef<HTMLElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [top, setTop] = useState(0);
+  const [tooltipHeight, setTooltipHeight] = useState(0);
 
-   if (!footnote) {
-     return null;
-   }
+  const updateTooltip = () => {
+    if (supRef.current) {
+      const rect = supRef.current.getBoundingClientRect();
+      // For fixed positioning, use viewport-relative coordinates
+      setTop(rect.bottom + 8);
+    }
+    if (tooltipRef.current) {
+      setTooltipHeight(tooltipRef.current.offsetHeight);
+    }
+  };
 
-   return (
-     <span
-       className="relative inline-block"
-       onMouseEnter={() => setIsHovered(true)}
-       onMouseLeave={() => setIsHovered(false)}
-       onFocus={() => setIsHovered(true)}
-       onBlur={() => setIsHovered(false)}
-     >
-       <sup
-         id={`fnref-${id}`}
-         className="text-primary cursor-help font-medium no-underline"
-         data-footnote-ref
-         data-footnote-id={id}
-       >
-         <a href={`#fn-${id}`} className="no-underline">
-           {footnote.index}
-         </a>
-       </sup>
-       {isHovered && (
-         <div className="absolute left-0 top-full z-[1000] mt-2 max-w-xs rounded-md border border-border bg-popover px-3 py-2 text-sm shadow-xl animate-in fade-in whitespace-normal break-words">
-           <div className="prose dark:prose-invert prose-sm">{footnote.content}</div>
-         </div>
-       )}
-     </span>
-   );
+  useEffect(() => {
+    if (isHovered) {
+      updateTooltip();
+    }
+  }, [isHovered]);
+
+  if (!footnote) {
+    return null;
+  }
+
+  return (
+    <>
+      <sup
+        ref={supRef}
+        id={`fnref-${id}`}
+        className="text-primary cursor-help font-medium no-underline"
+        data-footnote-ref
+        data-footnote-id={id}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+        onFocus={() => setIsHovered(true)}
+        onBlur={() => setIsHovered(false)}
+      >
+        <a href={`#fn-${id}`} className="no-underline">
+          {footnote.index}
+        </a>
+      </sup>
+      {/* Tooltip in document flow that pushes content down */}
+      <div
+        ref={tooltipRef}
+        className={`block transition-all duration-200 ease-in-out overflow-hidden shadow-[inset_0_0_6px_rgba(0,0,0,0.15)] dark:shadow-[inset_0_0_6px_rgba(0,0,0,0.95)] ${
+          isHovered ? "py-2" : "h-0"
+        }`}
+        // style={{
+        //   position: "absolute",
+        //   left: "0",
+        //   width: "calc(100vw - var(--sidebar-width))",
+        // }}
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
+        <div className="mx-auto max-w-prose rounded-md py-2 px-3 text-sm whitespace-normal wrap-break-word">
+          <div className="prose dark:prose-invert prose-lg">
+            {footnote.content}
+          </div>
+        </div>
+      </div>
+    </>
+  );
 }
 
 /**
@@ -94,7 +132,7 @@ export function Footnote({ id, children }: FootnoteProps) {
  */
 export function Footnotes({ className }: FootnotesProps) {
   const footnotes = Array.from(footnoteStore.entries()).sort(
-    (a, b) => a[1].index - b[1].index
+    (a, b) => a[1].index - b[1].index,
   );
 
   if (footnotes.length === 0) {
@@ -109,15 +147,8 @@ export function Footnotes({ className }: FootnotesProps) {
       <h3 className="sr-only">Footnotes</h3>
       <ol className="list-none pl-0">
         {footnotes.map(([id, { index, content }]) => (
-          <li
-            key={id}
-            id={`fn-${id}`}
-            className="my-2"
-            data-footnote-id={id}
-          >
-            <span className="mr-2 font-medium text-primary">
-              {index}.
-            </span>
+          <li key={id} id={`fn-${id}`} className="my-2" data-footnote-id={id}>
+            <span className="mr-2 font-medium text-primary">{index}.</span>
             <span className="prose dark:prose-invert">{content}</span>
             <a
               href={`#fnref-${id}`}
