@@ -51,7 +51,7 @@ export default function Home() {
             <div className="flex flex-wrap items-center justify-between gap-4 text-foreground text-sm">
               <Link
                 className="inline-flex items-center gap-2 font-semibold text-foreground no-underline"
-                href={site.social.linkedin || "/about"}
+                href="https://www.camulos.io/sam-spillard/"
                 rel="noreferrer"
                 target="_blank"
               >
