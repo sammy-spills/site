@@ -4,6 +4,12 @@
 
 @plugin "@tailwindcss/typography";
 
+/* Override Tailwind Typography backticks */
+.prose code::before,
+.prose code::after {
+  content: none !important;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 :root {
