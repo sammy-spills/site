@@ -2,6 +2,8 @@
 
 import type React from "react";
 import { usePathname } from "next/navigation";
+import { useEffect } from "react";
+import { resetFootnotes } from "./footnote";
 import { AppSidebar } from "@/components/app-sidebar";
 import { SiteHeader } from "@/components/site-header";
 import { SidebarInset, SidebarProvider } from "@/components/ui/sidebar";
@@ -10,6 +12,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const contentPaddingTop = pathname === "/rsvp" ? "pt-0" : "pt-10";
+
+  useEffect(() => {
+    // Reset footnotes when navigating to a new route to prevent
+    // footnote content from persisting across different pages
+    resetFootnotes();
+  }, [pathname]);
 
   return (
     <TooltipProvider>
