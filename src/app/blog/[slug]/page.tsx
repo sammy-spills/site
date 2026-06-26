@@ -65,7 +65,6 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   const metadata = blogFrontmatterSchema.parse(post.metadata);
   const { content, headings } = await renderMdxWithToc(post.content);
 
-  // Header section (back link, date, title, excerpt, tags, image)
   const headerSection = (
     <div className="space-y-8">
       <div className="space-y-4">
@@ -76,9 +75,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           Back to blog
         </Link>
         <div className="space-y-3">
-          <p className="text-muted-foreground text-xs uppercase tracking-[0.18em]">
-            {format(new Date(metadata.date), "d MMMM yyyy")}
-          </p>
+          <div className="flex flex-wrap gap-4">
+            <p className="text-muted-foreground text-xs uppercase tracking-[0.18em]">
+              {format(new Date(metadata.date), "d MMMM yyyy")}
+            </p>
+            {metadata.lastEdited && (
+              <p className="text-muted-foreground text-xs uppercase tracking-[0.18em]">
+                Last edited: {format(new Date(metadata.lastEdited), "d MMMM yyyy")}
+              </p>
+            )}
+          </div>
           <h1 className="font-bold text-3xl sm:text-4xl">{metadata.title}</h1>
           <p className="max-w-2xl text-muted-foreground text-sm/relaxed">
             {metadata.excerpt}
@@ -111,18 +117,15 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
 
   return (
     <div className="flex flex-col gap-8 lg:flex-row">
-      {/* Table of Contents - Left Sidebar on desktop, below hero on mobile */}
       <aside className="lg:w-80 lg:shrink-0 lg:sticky lg:top-20 lg:self-start">
         <div className="hidden lg:block">
           <TableOfContents items={headings} title={metadata.title} />
         </div>
       </aside>
 
-      {/* Main Article Content */}
       <article className="flex-1 space-y-8">
         {headerSection}
 
-        {/* Mobile TOC - shown below hero image */}
         <div className="lg:hidden">
           <TableOfContents items={headings} title={metadata.title} />
         </div>
