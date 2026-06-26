@@ -41,7 +41,7 @@ export async function generateMetadata({
       title: metadata.title,
       description: metadata.excerpt,
       alternates: {
-        canonical: `${siteConfig.siteUrl}/blog/${slug}`,
+        canonical: "${siteConfig.siteUrl}/blog/${slug},
       },
     };
   } catch {
@@ -76,9 +76,16 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
           Back to blog
         </Link>
         <div className="space-y-3">
-          <p className="text-muted-foreground text-xs uppercase tracking-[0.18em]">
-            {format(new Date(metadata.date), "d MMMM yyyy")}
-          </p>
+          <div className="flex flex-wrap gap-4">
+            <p className="text-muted-foreground text-xs uppercase tracking-[0.18em]">
+              {format(new Date(metadata.date), "d MMMM yyyy")}
+            </p>
+            {metadata.lastEdited && (
+              <p className="text-muted-foreground text-xs uppercase tracking-[0.18em]">
+                Last edited: {format(new Date(metadata.lastEdited), "d MMMM yyyy")}
+              </p>
+            )}
+          </div>
           <h1 className="font-bold text-3xl sm:text-4xl">{metadata.title}</h1>
           <p className="max-w-2xl text-muted-foreground text-sm/relaxed">
             {metadata.excerpt}
