@@ -18,7 +18,7 @@ function formatDateUK(dateStr: string) {
   const d = new Date(dateStr);
   const day = d.getUTCDate().toString().padStart(2, "0");
   const month = (d.getUTCMonth() + 1).toString().padStart(2, "0");
-  return `${day}-${month}-${d.getUTCFullYear()}`;
+  return "${day}-${month}-${d.getUTCFullYear()}";
 }
 
 export default function BlogIndexPage() {
@@ -91,7 +91,7 @@ export default function BlogIndexPage() {
                   <div>
                     <Link
                       className="group inline-flex max-w-3xl items-start gap-3 text-foreground no-underline"
-                      href={`/blog/${post.slug}`}
+                      href={'/blog/' + post.slug}
                     >
                       <h2 className="font-sans font-semibold text-2xl leading-tight transition-colors group-hover:text-primary">
                         {post.metadata.title}
@@ -119,7 +119,7 @@ export default function BlogIndexPage() {
                     {post.metadata.image ? (
                       <Link
                         className="relative block aspect-[4/3] w-full overflow-hidden border border-border lg:w-44"
-                        href={`/blog/${post.slug}`}
+                        href={'/blog/' + post.slug}
                       >
                         <Image
                           alt={post.metadata.title}
@@ -141,9 +141,14 @@ export default function BlogIndexPage() {
                       <p className="font-mono text-[0.7rem] text-primary uppercase">
                         {formatDateUK(post.metadata.date)}
                       </p>
+                      {post.metadata.lastEdited && (
+                        <p className="font-mono text-[0.7rem] text-muted-foreground uppercase mt-1">
+                          Last edited: {formatDateUK(post.metadata.lastEdited)}
+                        </p>
+                      )}
                       <Link
                         className="mt-3 inline-flex h-9 w-fit items-center gap-2 border border-foreground/25 px-3 font-medium text-foreground text-xs no-underline transition-colors hover:bg-foreground hover:text-background"
-                        href={`/blog/${post.slug}`}
+                        href={'/blog/' + post.slug}
                       >
                         Read
                         <ArrowUpRight className="size-3.5" aria-hidden="true" />
