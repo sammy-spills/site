@@ -637,7 +637,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
 
                     <label className="flex flex-col gap-2 text-sm font-medium">
                       <p className="font-medium text-muted-foreground">
-                        Willing to share a pod in provided accommodation?
+                        Willing to share a bell tent in provided accommodation?
                       </p>
                       <select
                         className="h-10 rounded-md border border-input bg-background px-3 text-sm"
