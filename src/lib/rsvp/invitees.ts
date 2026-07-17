@@ -142,7 +142,7 @@ export const invitees: readonly InviteeRecord[] = [
   {
     codeHash:
       "4bbb3f7a19a8119866ef709134aaf256d24b7bd0ddd5f2a5740e52e568192dbf",
-    name: "Dani",
+    name: "Dani & Joe",
     type: "guest",
   },
   {
