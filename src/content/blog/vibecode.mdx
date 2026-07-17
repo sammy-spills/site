@@ -1,6 +1,7 @@
 ---
 title: "Vive Vibe: A European's Guide to Agent Harnesses"
 date: "2026-06-22"
+lastEdited: "2026-06-26"
 excerpt: "What I learned about how I actually work by taking a whistle-stop tour of all the agent harnesses"
 tags:
   - ai
@@ -76,7 +77,7 @@ Well, it's to just use the vendor's harness. But not Codex, or Claude Code. Mist
 
 Mistral's Vibe CLI is more bare-bones than the others. It doesn't have all the bells and whistles of Codex. It's ostensibly less sophisticated than Claude Code. But, I think, therein lies it's strength. It's written in Python, super easy to configure via a global config file, and has heirarchical config (meaning I can add a single config file to a project, which takes precendence over the global config, but anything that's not defined will fall back to the global config). If I want to have an MCP configured for just one project, that's 4 lines of config. Easy. 
 
-With this move, I also made the move away from ChatGPT Pro. With Anthropic being hamstrung by US Government directives, whilst also openly admitting that their models are not that far ahead of the GPT-5.5 Pros of the world, it seems inevitable that the Trump administration will start to crack down on all Frontier Labs in the US, leaving us Europeans stuck either paying the same amount for a worse model, or having to rely on Chinese open models.
+With this move, I also made the move away from ChatGPT Pro. With Anthropic being hamstrung by US Government directives, whilst also openly admitting that their models are not that far ahead of the GPT-5.5 Pros of the world, it seems inevitable that the Trump administration will start to crack down on all Frontier Labs in the US, leaving us Europeans stuck either paying the same amount for a worse model, or having to rely on Chinese open models.<Footnote id="2">Edit as of 26/06/2026: I would just like to point out that [I called this by about 3 days!](https://www.ft.com/content/0580e5c9-75b8-4cc5-803d-fbb4e82bb3ad?syn-25a6b1a6=1)</Footnote>
 
 So, I decided to leap before I was pushed. Mistral's Free tier gives you access to their latest models, via the Vibe CLI for coding, with a relatively generous usage limit (bearing in mind Codex and Claude Code are limited to subscribers only, not the free tier). Their Pro tier is cheap, and gets you much more usage than either of the competitors. Their models are fine. Sure, they lag behind in benchmarks, but with the theme of this blog being __*"Getting real work done"*__, they are absolutely "good enough".
 
@@ -95,6 +96,7 @@ For anyone who just wants to skip to the end and see how I actually run stuff, h
 * [oMLX](https://omlx.ai/) as the local inference server. It's faster than LMStudio and ollama.
 * [cmux](https://cmux.com/) as my terminal emulator of choice.
 * [Vibe CLI](https://mistral.ai/news/devstral-2-vibe-cli/) as the harness.
+	* Wrapped in a [nono.sh](https://nono.sh/) container, because I don't want some rogue `SKILL.md` file stealing all my API keys
 * [Mistral Medium 3.5](https://mistral.ai/news/vibe-remote-agents-mistral-medium-3-5/) as my go-to frontier-level model. (Currently only via the Mistral API, sadly this is too big to run locally!)
 * [Devstral 2](https://docs.mistral.ai/models/model-cards/devstral-2-25-12) as my go-to coding model. Either via the API, or using the `Small` variant locally via `oMLX`.
   * I also run [North Mini Code 1.0](https://cohere.com/blog/north-mini-code) locally for coding tasks at the moment - it is _insanely_ quick.
