@@ -78,7 +78,7 @@ const FAQ_GUESTS = [
         bell tents to be available at the house. The tents can sleep 4 people
         comfortably, with space to move around. Very much a “glamping”
         experience, the bell tents will have beds and be kitted out for everyone
-        to be comfortable – me and Sam will be staying in one! We will have
+        to be comfortable – Sam and I will be staying in one! We will have
         breakfast arranged for everyone on the Sunday morning. If you want to
         stay over in a bell tent, it would be £30pp to share.
         <br />
