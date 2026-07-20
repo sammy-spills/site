@@ -18,7 +18,7 @@ import {
 } from "@/components/ui/accordion";
 
 type AttendanceStatus = "yes" | "no" | "maybe";
-type RoomShare = "yes" | "no" | "no-preference";
+type RoomShare = "yes" | "no";
 type Accommodation = "yes" | "no";
 type RSVPGateProps = {
   initialInviteCode?: string;
@@ -140,7 +140,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     useState<AttendanceStatus>("yes");
   const [dietaryRequirements, setDietaryRequirements] = useState("");
   const [accommodation, setAccommodation] = useState<Accommodation>("yes");
-  const [roomShare, setRoomShare] = useState<RoomShare>("no-preference");
+  const [roomShare, setRoomShare] = useState<RoomShare>("yes");
   const [email, setEmail] = useState("");
   const [transportation, setTransportation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -155,7 +155,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     setAttendanceStatus("yes");
     setDietaryRequirements("");
     setAccommodation("yes");
-    setRoomShare("no-preference");
+    setRoomShare("yes");
     setEmail("");
     setTransportation("");
   }
@@ -170,7 +170,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     setAttendanceStatus(rsvp.attendanceStatus);
     setDietaryRequirements(rsvp.dietaryRequirements);
     setAccommodation(rsvp.accommodation ?? "yes");
-    setRoomShare(rsvp.roomShare ?? "no-preference");
+    setRoomShare(rsvp.roomShare === "no-preference" ? "yes" : (rsvp.roomShare ?? "yes"));
     setEmail(rsvp.email);
     setTransportation(rsvp.transportation ?? "");
     setHasPreviouslySubmitted(true);
@@ -648,7 +648,6 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                       >
                         <option value="yes">Yes</option>
                         <option value="no">No</option>
-                        <option value="no-preference">No preference</option>
                       </select>
                     </label>
 
