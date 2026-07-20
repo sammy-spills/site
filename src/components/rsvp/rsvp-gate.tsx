@@ -140,7 +140,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     useState<AttendanceStatus>("yes");
   const [dietaryRequirements, setDietaryRequirements] = useState("");
   const [accommodation, setAccommodation] = useState<Accommodation>("yes");
-  const [roomShare, setRoomShare] = useState<RoomShare>("yes");
+  const [roomShare, setRoomShare] = useState<RoomShare>("no");
   const [email, setEmail] = useState("");
   const [transportation, setTransportation] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -155,7 +155,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     setAttendanceStatus("yes");
     setDietaryRequirements("");
     setAccommodation("yes");
-    setRoomShare("yes");
+    setRoomShare("no");
     setEmail("");
     setTransportation("");
   }
@@ -170,7 +170,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
     setAttendanceStatus(rsvp.attendanceStatus);
     setDietaryRequirements(rsvp.dietaryRequirements);
     setAccommodation(rsvp.accommodation ?? "yes");
-    setRoomShare(rsvp.roomShare === "no-preference" ? "yes" : (rsvp.roomShare ?? "yes"));
+    setRoomShare(rsvp.roomShare === "no-preference" ? "no" : (rsvp.roomShare ?? "no"));
     setEmail(rsvp.email);
     setTransportation(rsvp.transportation ?? "");
     setHasPreviouslySubmitted(true);
@@ -330,7 +330,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
         attendanceStatus,
         dietaryRequirements,
         accommodation: invitee.type === "guest" ? accommodation : null,
-        roomShare: invitee.type === "guest" ? roomShare : null,
+        roomShare: invitee.type === "guest" && accommodation === "yes" ? roomShare : null,
         email,
         transportation: transportation || null,
       });
