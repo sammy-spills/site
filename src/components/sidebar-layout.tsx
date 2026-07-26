@@ -12,6 +12,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const contentPaddingTop = pathname === "/rsvp" ? "pt-0" : "pt-10";
+  const showSidebar = pathname !== "/rsvp";
 
   useEffect(() => {
     // Reset footnotes when navigating to a new route to prevent
@@ -29,7 +30,7 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
           } as React.CSSProperties
         }
         >
-        <AppSidebar />
+        {showSidebar && <AppSidebar />}
         <SidebarInset>
           <SiteHeader />
           <div
