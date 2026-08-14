@@ -61,7 +61,7 @@ function PublicationRow({ index, pub }: { index: number; pub: Publication }) {
         </p>
         {pub.link ? (
           <Link
-            className="inline-flex h-9 w-fit items-center gap-2 border border-foreground/25 px-3 font-medium text-foreground text-xs no-underline transition-colors hover:bg-foreground hover:text-background"
+            className="inline-flex h-9 w-fit items-center gap-2 border border-foreground/25 px-3 font-mono text-[0.68rem] text-foreground uppercase no-underline transition-colors hover:bg-foreground hover:text-background"
             href={pub.link}
             rel="noopener noreferrer"
             target="_blank"
@@ -101,20 +101,20 @@ export function PublicationsTabs({
     <Tabs className="gap-0" defaultValue="all">
       <div className="grid border-border border-y lg:grid-cols-[0.78fr_1.22fr]">
         <div className="border-border border-r px-0 py-4 lg:px-0">
-          <p className="px-0 font-mono text-[0.7rem] text-muted-foreground uppercase">
+          <p className="px-0 font-mono text-[0.7rem] text-primary uppercase">
             Filter
           </p>
         </div>
         <TabsList className="!h-auto flex w-full flex-wrap justify-start gap-0 rounded-none bg-transparent p-0">
           <TabsTrigger
-            className="h-11 flex-none rounded-none border-border border-r px-4 font-mono text-[0.68rem] uppercase data-active:bg-foreground data-active:text-background"
+            className="h-11 flex-none rounded-none border-border border-r px-4 font-mono text-[0.68rem] uppercase data-active:border-primary data-active:border-b-2 data-active:bg-transparent data-active:text-foreground"
             value="all"
           >
             All ({publications.length})
           </TabsTrigger>
           {tabs.map((type) => (
             <TabsTrigger
-              className="h-11 flex-none rounded-none border-border border-r px-4 font-mono text-[0.68rem] uppercase data-active:bg-foreground data-active:text-background"
+              className="h-11 flex-none rounded-none border-border border-r px-4 font-mono text-[0.68rem] uppercase data-active:border-primary data-active:border-b-2 data-active:bg-transparent data-active:text-foreground"
               key={type}
               value={type}
             >

@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 
 export default function PublicationsPage() {
   return (
-    <main className="mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
+    <main className="editorial-page mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
       <section className="border-border border-b">
         <div className="grid md:grid-cols-[480px_1fr] 2xl:grid-cols-[576px_1fr]">
           <div className="border-border border-r px-6 py-14 md:px-10 lg:px-14">

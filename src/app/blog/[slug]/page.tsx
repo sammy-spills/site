@@ -116,8 +116,8 @@ export default async function BlogPostPage({ params }: BlogPostPageProps) {
   );
 
   return (
-    <div className="flex flex-col gap-8 lg:flex-row">
-      <aside className="lg:w-80 lg:shrink-0 lg:sticky lg:top-20 lg:self-start">
+    <div className="editorial-page flex flex-col gap-8 lg:flex-row">
+      <aside className="border-border lg:w-72 lg:shrink-0 lg:sticky lg:top-24 lg:self-start lg:border-r lg:pr-8">
         <div className="hidden lg:block">
           <TableOfContents items={headings} title={metadata.title} />
         </div>

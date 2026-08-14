@@ -13,11 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
     },
     {
-      url: `${siteConfig.siteUrl}/about`,
-      lastModified: new Date(),
-      changeFrequency: "monthly",
-    },
-    {
       url: `${siteConfig.siteUrl}/cv`,
       lastModified: new Date(),
       changeFrequency: "monthly",

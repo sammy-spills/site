@@ -44,8 +44,8 @@ export default function Home() {
   const secondaryPosts = posts.slice(1, 3);
 
   return (
-    <main className="mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
-      <section className="hero-grid min-h-[calc(100svh-150rem)] border-border border-b">
+    <main className="editorial-page mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
+      <section className="hero-grid border-border border-b">
         <div className="mx-auto grid max-w-7xl gap-0 lg:grid-cols-[minmax(0,1.15fr)_minmax(340px,0.85fr)]">
           <div className="flex min-h-[680px] flex-col justify-between border-border border-r px-6 py-8 md:px-10 lg:px-14">
             <div className="flex flex-wrap items-center justify-between gap-4 text-foreground text-sm">
@@ -73,8 +73,8 @@ export default function Home() {
                   {site.profile.institute}
                 </a>
               </p>
-              <h1 className="max-w-5xl font-display text-6xl text-foreground leading-none md:text-6xl xl:text-8xl">
-                AI Engineering for National Security.
+              <h1 className="max-w-5xl font-display text-6xl text-foreground leading-[0.9] md:text-7xl xl:text-8xl">
+                AI engineering for <em>national security.</em>
               </h1>
               <p className="mt-8 max-w-2xl text-balance text-lg text-muted-foreground leading-8 md:text-xl">
                 I build and evaluate AI systems for hard, high-consequence
@@ -116,7 +116,7 @@ export default function Home() {
             </div>
           </div>
 
-          <div className="flex min-h-[520px] flex-col bg-[#1f1f1f] text-[#fff8e0]">
+          <div className="flex min-h-[520px] flex-col bg-foreground text-background">
             <div className="relative min-h-[420px] flex-1 overflow-hidden">
               <Image
                 alt={site.profile.fullName || "Profile image"}
@@ -127,11 +127,11 @@ export default function Home() {
                 priority
               />
               <div
-                className="absolute inset-0 bg-[linear-gradient(180deg,rgba(31,31,31,0)_28%,rgba(31,31,31,0.72)_100%)]"
+                className="absolute inset-0 bg-[linear-gradient(180deg,transparent_28%,color-mix(in_oklab,var(--foreground)_72%,transparent)_100%)]"
                 aria-hidden="true"
               />
-              <div className="absolute right-5 bottom-5 left-5 border border-[#fff8e0]/30 bg-[#1f1f1f]/70 p-5 backdrop-blur">
-                <p className="font-mono text-[0.7rem] uppercase text-[#ffa110]">
+              <div className="absolute right-5 bottom-5 left-5 border border-background/30 bg-foreground/70 p-5 backdrop-blur">
+                <p className="font-mono text-[0.7rem] text-primary uppercase">
                   Current focus
                 </p>
                 <p className="mt-3 text-2xl leading-tight">
@@ -182,10 +182,10 @@ export default function Home() {
       </section>
 
       {featuredPost && (
-        <section className="border-border border-b bg-[#fff8e0] text-[#1f1f1f]">
+        <section className="border-border border-b bg-secondary text-secondary-foreground">
           <div className="mx-auto grid max-w-7xl lg:grid-cols-[1.1fr_0.9fr]">
             <Link
-              className="group relative min-h-[420px] overflow-hidden border-[#1f1f1f]/20 border-r text-[#fff8e0] no-underline"
+              className="group relative min-h-[420px] overflow-hidden border-border border-r text-background no-underline"
               href={`/blog/${featuredPost.slug}`}
             >
               {featuredPost.metadata.image && (
@@ -197,9 +197,9 @@ export default function Home() {
                   src={featuredPost.metadata.image}
                 />
               )}
-              <div className="absolute inset-0 bg-[#1f1f1f]/55" />
+              <div className="absolute inset-0 bg-foreground/55" />
               <div className="absolute right-6 bottom-6 left-6">
-                <p className="font-mono text-xs uppercase text-[#ffd900]">
+                <p className="font-mono text-primary text-xs uppercase">
                   Latest note / {formatDateUK(featuredPost.metadata.date)}
                 </p>
                 <h2 className="mt-4 max-w-3xl font-display text-5xl leading-none md:text-6xl">
@@ -216,10 +216,10 @@ export default function Home() {
                   {featuredPost.metadata.excerpt}
                 </p>
               </div>
-              <div className="mt-10 divide-y divide-[#1f1f1f]/20 border-[#1f1f1f]/20 border-y">
+              <div className="mt-10 divide-y divide-border border-border border-y">
                 {secondaryPosts.map((post) => (
                   <Link
-                    className="flex items-center justify-between gap-5 py-5 text-[#1f1f1f] no-underline transition-colors hover:text-primary"
+                    className="flex items-center justify-between gap-5 py-5 text-secondary-foreground no-underline transition-colors hover:text-primary"
                     href={`/blog/${post.slug}`}
                     key={post.slug}
                   >

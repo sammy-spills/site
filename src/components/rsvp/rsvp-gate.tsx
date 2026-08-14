@@ -361,7 +361,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
   }
 
   return (
-    <div className="mistral-prototype pb-12 -mx-6 md:-mx-10 lg:-mx-16">
+    <div className="rsvp-page mistral-prototype pb-12 -mx-6 md:-mx-10 lg:-mx-16">
       <div className="relative left-1/2 w-screen -translate-x-1/2 md:hidden">
         <div className="relative">
           <Image
@@ -421,7 +421,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
         </CardDescription>
 
         {!invitee ? (
-          <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <section className="border border-border bg-card p-6 shadow-sm">
             <h2 className="text-xl font-display font-medium">
               Invitation access
             </h2>
@@ -450,7 +450,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
           </section>
         ) : (
           <>
-            <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <section className="border border-border bg-card p-6 shadow-sm">
               <div className="text-center">
                 <h2 className="text-3xl font-bold font-display text-primary">
                   Welcome, {invitee.name}
@@ -531,7 +531,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
               )}
             </section>
 
-            <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <section className="border border-border bg-card p-6 shadow-sm">
               <Accordion>
                 <AccordionItem key="faq">
                   <AccordionTrigger>
@@ -560,7 +560,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
               </Accordion>
             </section>
 
-            <section className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+            <section className="border border-border bg-card p-6 shadow-sm">
               <h2 className="text-xl font-display font-semibold">RSVP</h2>
               <p className="mt-2 text-sm text-muted-foreground">
                 Please reply by November 1, 2026. You can let us know if plans

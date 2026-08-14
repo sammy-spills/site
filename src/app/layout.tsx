@@ -1,23 +1,30 @@
 import type { Metadata } from "next";
-import { Cormorant_Garamond, Literata } from "next/font/google";
+import { DM_Mono, Instrument_Serif, Manrope } from "next/font/google";
 import { SidebarLayout } from "@/components/sidebar-layout";
 import { siteConfig } from "@/lib/site-config";
 import { ThemeProvider } from "@/components/theme-provider";
 import { site } from "@/lib/data";
 import "./globals.css";
 
-const literata = Literata({
+const manrope = Manrope({
   subsets: ["latin"],
   display: "swap",
-  variable: "--font-literata",
+  variable: "--font-manrope",
 });
 
-const cormorantGaramond = Cormorant_Garamond({
+const dmMono = DM_Mono({
   subsets: ["latin"],
-  weight: ["400", "500", "600", "700"],
+  weight: ["400", "500"],
+  display: "swap",
+  variable: "--font-dm-mono",
+});
+
+const instrumentSerif = Instrument_Serif({
+  subsets: ["latin"],
+  weight: "400",
   style: ["normal", "italic"],
   display: "swap",
-  variable: "--font-cormorant-garamond",
+  variable: "--font-instrument-serif",
 });
 
 export const metadata: Metadata = {
@@ -57,7 +64,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${literata.className} antialiased`}>
+      <body className={`${manrope.variable} ${dmMono.variable} ${instrumentSerif.variable} antialiased`}>
         <ThemeProvider>
           <SidebarLayout>{children}</SidebarLayout>
         </ThemeProvider>

@@ -5,11 +5,10 @@ import experienceData from "@/data/experience.json";
 import publicationsData from "@/data/publications.json";
 import presentationsData from "@/data/presentations.json";
 import professionalServiceData from "@/data/professional-service.json";
-import projectsData from "@/data/projects.json";
 import researchAreasData from "@/data/research-areas.json";
 import siteData from "@/data/site.json";
 import skillsData from "@/data/skills.json";
-import { projectSchema, publicationSchema, researchAreaSchema } from "@/lib/schemas/content";
+import { publicationSchema, researchAreaSchema } from "@/lib/schemas/content";
 import {
   awardSchema,
   educationSchema,
@@ -41,5 +40,4 @@ export const publications = z
 export const researchAreas = z
   .array(researchAreaSchema)
   .parse(researchAreasData);
-export const projects = z.array(projectSchema).parse(projectsData);
 export const site = siteConfigSchema.parse(siteData);

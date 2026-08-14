@@ -25,7 +25,7 @@ export function SidebarProfile({ profile }: SidebarProfileProps) {
     <SidebarMenu className="gap-0">
       <SidebarMenuItem>
         <SidebarMenuButton
-          className="data-[slot=sidebar-menu-button]:!h-auto rounded-none border-sidebar-border/70 border-b-0 px-4 py-5 hover:bg-sidebar-accent/70 data-[slot=sidebar-menu-button]:gap-3 group-data-[collapsible=icon]:!size-12 group-data-[collapsible=icon]:!justify-center group-data-[collapsible=icon]:!p-0"
+          className="data-[slot=sidebar-menu-button]:!h-auto rounded-none border-sidebar-border/70 border-b-0 px-4 py-6 hover:bg-sidebar-accent/70 data-[slot=sidebar-menu-button]:gap-3 group-data-[collapsible=icon]:!size-12 group-data-[collapsible=icon]:!justify-center group-data-[collapsible=icon]:!p-0"
           render={<Link href="/" />}
           size="lg"
           tooltip={displayName}
@@ -34,10 +34,10 @@ export function SidebarProfile({ profile }: SidebarProfileProps) {
             {initials || "YN"}
           </div>
           <div className="grid flex-1 gap-1 text-left leading-tight group-data-[collapsible=icon]:hidden">
-            <span className="truncate font-semibold text-sidebar-foreground text-sm">
+            <span className="truncate font-mono text-[0.76rem] text-sidebar-foreground uppercase tracking-[-0.04em]">
               {displayName}
             </span>
-            <span className="line-clamp-2 text-sidebar-foreground/62 text-xs leading-4">
+            <span className="line-clamp-2 text-sidebar-foreground/62 text-[0.68rem] leading-4">
               {profile.role}
             </span>
           </div>

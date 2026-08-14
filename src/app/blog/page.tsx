@@ -30,7 +30,7 @@ export default function BlogIndexPage() {
   const latest = posts[0]?.metadata.date;
 
   return (
-    <main className="mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
+    <main className="editorial-page mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
       <section className="border-border border-b">
         <div className="grid lg:grid-cols-[384px_1fr] xl:grid-cols-[480px_1fr]">
           <div className="border-border border-r px-6 py-14 md:px-10 lg:px-14">

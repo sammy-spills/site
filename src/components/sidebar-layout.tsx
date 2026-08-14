@@ -11,7 +11,8 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 
 export function SidebarLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
-  const contentPaddingTop = pathname === "/rsvp" ? "pt-0" : "pt-10";
+  const isRsvpPage = pathname === "/rsvp";
+  const contentPaddingTop = isRsvpPage ? "pt-0" : "pt-10";
 
   useEffect(() => {
     // Reset footnotes when navigating to a new route to prevent
@@ -24,14 +25,14 @@ export function SidebarLayout({ children }: { children: React.ReactNode }) {
       <SidebarProvider
         style={
           {
-            "--sidebar-width": "calc(var(--spacing) * 72)",
-            "--header-height": "calc(var(--spacing) * 12)",
+            "--sidebar-width": "calc(var(--spacing) * 76)",
+            "--header-height": "calc(var(--spacing) * 16)",
           } as React.CSSProperties
         }
         >
-        <AppSidebar />
+        {!isRsvpPage && <AppSidebar />}
         <SidebarInset>
-          <SiteHeader />
+          {!isRsvpPage && <SiteHeader />}
           <div
             className={`flex flex-1 flex-col gap-4 px-6 pb-6 ${contentPaddingTop} md:px-10 lg:px-16`}
           >

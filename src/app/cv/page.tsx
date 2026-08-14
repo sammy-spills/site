@@ -18,7 +18,7 @@ export default function CVPage() {
     experiences.length > 0 || education.length > 0 || skills.length > 0;
 
   return (
-    <main className="mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
+    <main className="editorial-page mistral-prototype -mx-6 -mt-10 md:-mx-10 lg:-mx-16">
       <section className="border-border border-b">
         <div className="grid lg:grid-cols-[384px_1fr] xl:grid-cols-[480px_1fr]">
           <div className="border-border border-r px-6 py-14 md:px-10 lg:px-14">
@@ -87,37 +87,37 @@ export default function CVPage() {
       ) : null}
 
       {education.length > 0 ? (
-        <section className="border-border border-b bg-[#fff8e0] text-[#1f1f1f]">
+        <section className="border-border border-b bg-secondary text-secondary-foreground">
           <SectionHeader
             count={education.length}
             icon={GraduationCapIcon}
             label=""
             title="Education"
           />
-          <div className="mx-auto max-w-7xl border-[#1f1f1f]/20 border-t">
+          <div className="mx-auto max-w-7xl border-border border-t">
             {education.map((item, index) => (
               <article
-                className="grid gap-6 border-[#1f1f1f]/20 border-b px-6 py-8 last:border-b-0 md:grid-cols-[88px_1fr] md:px-10 lg:grid-cols-[96px_1fr_220px] lg:px-14"
+                className="grid gap-6 border-border border-b px-6 py-8 last:border-b-0 md:grid-cols-[88px_1fr] md:px-10 lg:grid-cols-[96px_1fr_220px] lg:px-14"
                 key={`${item.school}-${item.degree}-${item.time}`}
               >
-                <p className="font-mono text-[0.7rem] text-[#1f1f1f]/55 uppercase">
+                  <p className="font-mono text-[0.7rem] text-muted-foreground uppercase">
                   {String(index + 1).padStart(2, "0")}
                 </p>
                 <div>
                   <h2 className="font-sans font-semibold text-2xl leading-tight">
                     {item.degree}
                   </h2>
-                  <p className="mt-2 text-[#1f1f1f]/65 text-sm">
+                  <p className="mt-2 text-muted-foreground text-sm">
                     {item.school}
                     {item.location ? ` / ${item.location}` : ""}
                   </p>
                   {item.description ? (
-                    <p className="mt-5 max-w-3xl text-[#1f1f1f]/70 text-sm leading-7">
+                    <p className="mt-5 max-w-3xl text-muted-foreground text-sm leading-7">
                       {item.description}
                     </p>
                   ) : null}
                 </div>
-                <p className="font-mono text-[0.72rem] text-[#1f1f1f]/55 uppercase lg:text-right">
+                <p className="font-mono text-[0.72rem] text-muted-foreground uppercase lg:text-right">
                   {item.time}
                 </p>
               </article>

@@ -44,6 +44,7 @@ interface SidebarSocialProps {
 
 export function SidebarSocial({ social }: SidebarSocialProps) {
   const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === "dark";
 
   const entries = Object.entries(social).filter(
     ([key, value]) => value && key in iconMap
@@ -89,10 +90,10 @@ export function SidebarSocial({ social }: SidebarSocialProps) {
         <TooltipTrigger
           render={
             <Button
+              aria-label={`Switch to ${isDark ? "light" : "dark"} theme`}
+              aria-pressed={isDark}
               className="h-11 w-full rounded-none text-sidebar-foreground/70 hover:bg-sidebar-accent hover:text-primary group-data-[collapsible=icon]:size-12"
-              onClick={() =>
-                setTheme(resolvedTheme === "dark" ? "light" : "dark")
-              }
+              onClick={() => setTheme(isDark ? "light" : "dark")}
               size="sm"
               variant="ghost"
             />
