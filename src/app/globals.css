@@ -541,4 +541,38 @@
     .rsvp-page textarea {
         border-radius: 0;
     }
+
+    .rsvp-page {
+        position: relative;
+        background-color: var(--background);
+    }
+
+    .rsvp-page::before {
+        position: absolute;
+        z-index: 0;
+        inset: 0;
+        pointer-events: none;
+        background-color: var(--primary);
+        content: "";
+        -webkit-mask-image: url("/rsvp-flower-pattern.svg");
+        -webkit-mask-position: top right;
+        -webkit-mask-repeat: repeat;
+        -webkit-mask-size: 390px 390px;
+        mask-image: url("/rsvp-flower-pattern.svg");
+        mask-position: top right;
+        mask-repeat: repeat;
+        mask-size: 390px 390px;
+        opacity: 0.12;
+    }
+
+    .rsvp-page > * {
+        position: relative;
+        z-index: 1;
+    }
+
+    .dark .rsvp-page::before {
+        background-color: var(--accent);
+        opacity: 0.09;
+    }
+
 }
