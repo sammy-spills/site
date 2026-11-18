@@ -563,8 +563,8 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
             <section className="border border-border bg-card p-6 shadow-sm">
               <h2 className="text-xl font-display font-semibold">RSVP</h2>
               <p className="mt-2 text-sm text-muted-foreground">
-                Please reply by November 1, 2026. You can let us know if plans
-                change by re-submitting the form, or emailing us at{" "}
+                  You can let us know if plans change by re-submitting
+                  the form, or emailing us at{" "}
                 <a
                   className={venueMapLinkClasses}
                   href="mailto:rsvp@spillard.io"
