@@ -465,7 +465,7 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                 </button>
               </div>
 
-              {invitee.type === "family" ? (
+              {invitee.type !== "guest" ? (
                 <dl className="mt-4 grid gap-3 text-sm sm:grid-cols-[180px_1fr]">
                   <dt className="font-medium text-muted-foreground">Date</dt>
                   <dd>Saturday, June 26, 2027</dd>
@@ -484,14 +484,18 @@ export function RSVPGate({ initialInviteCode = "" }: RSVPGateProps) {
                       <span className="sr-only">(opens in a new tab)</span>
                     </a>
                   </dd>
-                  <dt className="font-medium text-muted-foreground">
-                    Accommodation
-                  </dt>
-                  <dd>
-                    We have sorted accommodation for all family members. Once
-                    we've confirmed numbers, we will let you know the
-                    arrangements. You do not need to book anything!
-                  </dd>
+                  {invitee.type === "family" ? (
+                    <>
+                      <dt className="font-medium text-muted-foreground">
+                        Accommodation
+                      </dt>
+                      <dd>
+                        We have sorted accommodation for all family members. Once
+                        we've confirmed numbers, we will let you know the
+                        arrangements. You do not need to book anything!
+                      </dd>
+                    </>
+                  ) : null}
                   <dt className="font-medium text-muted-foreground">
                     Dress code
                   </dt>

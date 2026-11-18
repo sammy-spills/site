@@ -1,4 +1,4 @@
-export type InviteeType = "family" | "guest";
+export type InviteeType = "family" | "guest" | "m";
 
 export type InviteeRecord = {
   codeHash: string;
@@ -125,12 +125,6 @@ export const invitees: readonly InviteeRecord[] = [
     codeHash:
       "f5944de8884e063cec06aaf9f82b32e09a7814fbed6731c02998c8186262402e",
     name: "Bali & Dave",
-    type: "family",
-  },
-  {
-    codeHash:
-      "9ba69a4776cc73f8454cff61caf22c2f71c49c9b8ccbd77d37e7a9ae1595cb15",
-    name: "Mudge and Nick",
     type: "family",
   },
   {
@@ -295,6 +289,31 @@ export const invitees: readonly InviteeRecord[] = [
     name: "Lindsay & Steve",
     type: "guest",
   },
+  {
+    codeHash: "9ba69a4776cc73f8454cff61caf22c2f71c49c9b8ccbd77d37e7a9ae1595cb15",
+    name: "Mudge",
+    type: "m",
+  },
+  {
+    codeHash: "2cbfe1e19182136acaf50f7cd7d6cb364c09160c931b76f07612e26653927585",
+    name: "Nick & Janine",
+    type: "m",
+  },
+  {
+    codeHash: "9d07cf2f186b0945b307d32e9443ac03c44f2b61f461304823264ae3a5c9dbca",
+    name: "Candy, Eugene, Sandy & Leon",
+    type: "m",
+  },
+  {
+    codeHash: "fe099489accee26802f51974fa8919cec090b984893befd5e8d80dcf53b20e4b",
+    name: "Sarah & Nev",
+    type: "m",
+  },
+  {
+    codeHash: "62821c0042094d77eb89e9153f920c034570340755c05ac65c4629f289c41390",
+    name: "Charlie & Helen",
+    type: "m",
+  }
 ] as const;
 
 export function normalizeInviteCode(code: string): string {
