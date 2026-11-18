@@ -1,0 +1,104 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    function isMapleInviteHash(value) {
+      return value is string && value.matches('^[a-f0-9]{64}$');
+    }
+
+    function hasMapleInviteAccess(inviteHash) {
+      return request.auth != null
+        && get(/databases/$(database)/documents/maple-two-rsvp-access/$(request.auth.uid)).data.eventId == 'maple-two'
+        && get(/databases/$(database)/documents/maple-two-rsvp-access/$(request.auth.uid)).data.inviteHash == inviteHash
+        && get(/databases/$(database)/documents/maple-two-invites/$(inviteHash)).data.active == true;
+    }
+
+    function isValidMapleAccessClaim(userId) {
+      let data = request.resource.data;
+      return request.auth != null
+        && request.auth.uid == userId
+        && data.keys().hasAll(['claimedAt', 'eventId', 'inviteHash'])
+        && data.keys().hasOnly(['claimedAt', 'eventId', 'inviteHash'])
+        && data.claimedAt == request.time
+        && data.eventId == 'maple-two'
+        && isMapleInviteHash(data.inviteHash)
+        && get(/databases/$(database)/documents/maple-two-invites/$(data.inviteHash)).data.active == true;
+    }
+
+    function isValidMapleRsvp(inviteHash) {
+      let data = request.resource.data;
+      return data.keys().hasAll([
+          'attendanceStatus',
+          'dietaryRequirements',
+          'email',
+          'eventId',
+          'inviteCodeHash',
+          'inviteeName',
+          'message',
+          'partySize',
+          'submittedAt'
+        ])
+        && data.keys().hasOnly([
+          'attendanceStatus',
+          'dietaryRequirements',
+          'email',
+          'eventId',
+          'inviteCodeHash',
+          'inviteeName',
+          'message',
+          'partySize',
+          'submittedAt'
+        ])
+        && data.eventId == 'maple-two'
+        && data.inviteCodeHash == inviteHash
+        && data.inviteeName == get(/databases/$(database)/documents/maple-two-invites/$(inviteHash)).data.name
+        && data.attendanceStatus in ['yes', 'no']
+        && data.dietaryRequirements is string
+        && data.dietaryRequirements.size() <= 2000
+        && data.email is string
+        && data.email.size() >= 3
+        && data.email.size() <= 320
+        && data.message is string
+        && data.message.size() <= 2000
+        && (
+          (
+            data.attendanceStatus == 'yes'
+            && data.partySize is int
+            && data.partySize >= 1
+            && data.partySize <= 50
+          )
+          || (
+            data.attendanceStatus == 'no'
+            && data.partySize == null
+            && data.dietaryRequirements == ''
+          )
+        )
+        && data.submittedAt == request.time;
+    }
+
+    // Preserve the existing wedding RSVP behavior unchanged.
+    match /rsvps/{rsvpId} {
+      allow create, read: if true;
+      allow update, delete: if false;
+    }
+
+    match /maple-two-invites/{inviteHash} {
+      allow get: if hasMapleInviteAccess(inviteHash);
+      allow list, write: if false;
+    }
+
+    match /maple-two-rsvp-access/{userId} {
+      allow get: if request.auth != null && request.auth.uid == userId;
+      allow create, update: if isValidMapleAccessClaim(userId);
+      allow delete: if request.auth != null && request.auth.uid == userId;
+      allow list: if false;
+    }
+
+    match /maple-two-rsvps/{inviteHash} {
+      allow get: if hasMapleInviteAccess(inviteHash);
+      allow create, update: if hasMapleInviteAccess(inviteHash)
+        && isValidMapleRsvp(inviteHash);
+      allow list, delete: if false;
+    }
+  }
+}
